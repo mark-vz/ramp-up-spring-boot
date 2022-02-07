@@ -6,9 +6,9 @@
 
 ### Project scaffolding
 
-Der einfachste Weg, einen frischen Spring Boot Service zu erstellen, ist der _Spring Initializr_.
+Der einfachste Weg, einen frischen Spring Boot Service zu erstellen, ist der _Spring Initializr_:
 
--> <https://start.spring.io/>
+<https://start.spring.io/>
 
 Auf dieser Seite konfigurierst du den Namen deines neu zu erstellenden Services, ein paar grundlegende Projekteigenschaften sowie benötigte Module (Abhängigkeiten). Anschließend klickst du auf den "Generate" Button und die fertige "nackte" Spring Boot Anwendung wird heruntergeladen.
 
@@ -35,7 +35,9 @@ Der folgende Link führt dich zu einer beispielhaften Demo-Konfiguration mit nur
 
 Als Build-Werkzeug verwenden wir _Gradle_ mit _Groovy_. Beides ist auch die Voraussetzung für die weiteren Abschnitte.
 
--> <https://docs.gradle.org/current/userguide/getting_started.html>
+Mehr unter:
+
+- <https://docs.gradle.org/current/userguide/getting_started.html>
 
 ### Run
 
@@ -65,12 +67,13 @@ Der folgende Befehl stößt den Build-Vorgang an:
 
 Wir schreiben unsere Unit- und Integrationstests mithilfe des _Spock_ Frameworks. Die verwendete Sprache ist Groovy, allerdings sind keine tiefer gehenden Groovy-Kenntnisse nötig, um Tests schreiben zu können. ;)
 
--> <https://spockframework.org/>\
--> <https://groovy-lang.org/>
-
 Während Unit-Tests einzelne, gekapselte Funktionalitäten testen und alle äußeren Abhängigkeiten "gemocked" werden, benötigen Integrationstests die komplette Spring Umgebung, ggf. eine Datenbank, weitere Services, etc., um getestet werden zu können. Mittels _Testcontainers_ lässt sich eine vollständige Umgebung mit z.B. einem Datenbanksystem modular als Docker-Container hochfahren gegen die dann getestet wird. Die Testumgebung wird im Test-Code programmatisch konfiguriert.
 
--> <https://www.testcontainers.org/>
+Mehr unter:
+
+- <https://spockframework.org/>
+- <https://groovy-lang.org/>
+- <https://www.testcontainers.org/>
 
 ### REST
 
@@ -84,7 +87,9 @@ In Spring Boot werden ein oder mehrere Endpunkte in einem sogenannten _Controlle
 - Controller stellen nach Möglichkeit nur CRUD-Aktionen (Create, Read, Update oder Delete) zur Verfügung (z.B. `getAllUsers(...)`)
 - Aktionen (Create, Read, Update oder Delete) werden über HTTP-Verben und nie via Pfad-Artefakte gesteuert (z.B. `DELETE /api/users/<id-des-users>`)
 
--> <https://restfulapi.net/>
+Mehr unter:
+
+- <https://restfulapi.net/>
 
 ### Controller, Service, Repository
 
@@ -92,15 +97,19 @@ In Spring Boot stellt ein sogenannter _Controller_ (z.B. `UserController`) einen
 
 Controller-, Service- und Repository-Instanzen werden _Spring Beans_ genannt. Neben diesen drei Ausprägungen gibt es noch weitere Bean-Typen.
 
--> <https://www.baeldung.com/spring-bean>
+Mehr unter:
+
+- <https://www.baeldung.com/spring-bean>
 
 ### Dependency Injection / Inversion of Control
 
 Das Spring Framework - und somit Spring Boot - unterstützt die sogenannte _Dependency Injection_. Mit ihrer Hilfe können _Spring Beans_ vom Spring Framework automatisch instantiiert und an Klassen, die eine Abhängigkeit zu ihnen haben, übergeben werden.
 
--> <https://www.baeldung.com/spring-dependency-injection>
--> <https://www.baeldung.com/inversion-control-and-dependency-injection-in-spring>
--> <https://docs.spring.io/spring-boot/docs/2.0.x/reference/html/using-boot-spring-beans-and-dependency-injection.html>
+Mehr unter:
+
+- <https://www.baeldung.com/spring-dependency-injection>
+- <https://www.baeldung.com/inversion-control-and-dependency-injection-in-spring>
+- <https://docs.spring.io/spring-boot/docs/2.0.x/reference/html/using-boot-spring-beans-and-dependency-injection.html>
 
 ### Spring Data JPA
 
@@ -123,15 +132,19 @@ public interface UserRepository extends JpaRepository<User, Long> {
 }
 ```
 
--> <https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.at-query>
--> <https://www.baeldung.com/the-persistence-layer-with-spring-data-jpa>
--> <https://www.baeldung.com/jpa-entity-table-names>
+Mehr unter:
+
+- <https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.at-query>
+- <https://www.baeldung.com/the-persistence-layer-with-spring-data-jpa>
+- <https://www.baeldung.com/jpa-entity-table-names>
 
 ### Liquibase
 
 Spring Boot bietet Unterstützung für alle gängigen Datenbanksysteme. Sämtliche Änderungen am Datenbankschema sollten genauso Teil des Sourcecode-Managements sein, wie der Quellcode selbst. _Liquibase_ hilft nicht nur beim initialen Anlegen aller Tabellen und Seed-Daten sondern ermöglicht auch die Schrittweise Ergänzung, Änderung, Entfernung von Tabellen, Indizes, Daten, etc. - die sogenannte Schema-Evolution. Dabei wird jeder einzelne Schritt der gesamten Historie in einem eigenen File festgehalten und unter Git-Kontrolle gebracht.
 
--> <https://liquibase.org/>
+Mehr unter:
+
+- <https://liquibase.org/>
 
 ### Security
 
@@ -139,8 +152,10 @@ Die REST-Endpunkte aller Services sind in aller Regel nicht öffentlich. Sie sin
 
 Es wird der _Authorization Code Flow_ verwendet.
 
--> <https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow>
--> <https://jwt.io/>
+Mehr unter:
+
+- <https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow>
+- <https://jwt.io/>
 
 ## Spring Boot Demo service
 
