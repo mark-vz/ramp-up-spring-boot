@@ -4,12 +4,12 @@ addReviewers: false
 # Set to true to add assignees to pull requests
 addAssignees: true
 
-# A list of assignees to be added to pull requests (GitHub user name)
+# The list of assignees to be added to pull requests (GitHub user name)
 assignees:
   - mark-vz
   - rdss-skirejewski
 
-# A number of assignees added to the pull request
-# Set 0 to add all the assignees (default: 0)
-# This above sentence doesn't seems to work. Instead set one assignee (team - createBy)
+# The number of assignees to add to the pull request
+# Set to 0 to add all assignees (default: 0)
+# "Take 0 to add all" doesn't seem to work; instead set to 1 (team - createBy)
 numberOfAssignees: 1
