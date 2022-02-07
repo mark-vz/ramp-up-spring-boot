@@ -1,0 +1,40 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.3'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+dependencyManagement {
+    dependencies {
+        dependency 'org.springdoc:springdoc-openapi-ui:1.6.5'
+        dependency 'io.swagger.core.v3:swagger-annotations:2.1.12'
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // Metrics / Monitoring
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    // OpenAPI + Swagger UI
+    implementation("org.springdoc:springdoc-openapi-ui")
+    implementation("io.swagger.core.v3:swagger-annotations")
+
+    // ----- Testing -----
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

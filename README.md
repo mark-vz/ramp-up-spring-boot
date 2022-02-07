@@ -51,7 +51,7 @@ Nachdem du deine Spring Boot Anwendung heruntergeladen hast, kannst du das Zip-F
 
 starten. Da die Applikation noch nie gebaut wurde, geht dem Start automatisch ein Build voran.
 
-Im Browser unter <http://localhost:8080/> antwortet der noch nicht sonderlich sinnvolle Service. Erster Durchstich geschafft ... :-)
+Im Browser unter <http://localhost:8080/> antwortet der noch nicht sonderlich sinnvolle Service (korrekterweise) mit einer "Whitelabel Error Page", da es noch keine Endpunkte gibt. Erster Durchstich geschafft ... :-)
 
 ### Build
 
@@ -171,8 +171,8 @@ Mehr unter:
 - <https://www.baeldung.com/spring-security-oauth>
 - <https://www.baeldung.com/spring-security-oauth-auth-server>
 
-## Spring Boot Demo service
+## Hands-on Spring Boot Service "My User Management"
 
-Der "demo" Service enthält einen Controller namens `UserController`, welcher einen Endpunkt `/api/users` zur Verfügung stellt.
+Der "my-user-mgmt" Service enthält einen Controller namens `UserController`, welcher einen Endpunkt `/api/users` zur Verfügung stellt.
 
 TODO: More to come here ... :)
