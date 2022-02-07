@@ -38,6 +38,8 @@ Als Build-Werkzeug verwenden wir _Gradle_ mit _Groovy_. Beides ist auch die Vora
 Mehr unter:
 
 - <https://docs.gradle.org/current/userguide/getting_started.html>
+- <https://docs.spring.io/spring-boot/docs/current/gradle-plugin/reference/htmlsingle/>
+- <https://www.baeldung.com/spring-boot-gradle-plugin>
 
 ### Run
 
@@ -72,8 +74,11 @@ Während Unit-Tests einzelne, gekapselte Funktionalitäten testen und alle äuß
 Mehr unter:
 
 - <https://spockframework.org/>
+- <https://www.baeldung.com/groovy-spock>
 - <https://groovy-lang.org/>
 - <https://www.testcontainers.org/>
+- <https://www.baeldung.com/docker-test-containers>
+- <https://www.baeldung.com/spring-boot-testcontainers-integration-test>
 
 ### REST
 
@@ -90,6 +95,8 @@ In Spring Boot werden ein oder mehrere Endpunkte in einem sogenannten _Controlle
 Mehr unter:
 
 - <https://restfulapi.net/>
+- <https://spring.io/guides/tutorials/rest/>
+- <https://www.baeldung.com/rest-with-spring-series>
 
 ### Controller, Service, Repository
 
@@ -100,6 +107,9 @@ Controller-, Service- und Repository-Instanzen werden _Spring Beans_ genannt. Ne
 Mehr unter:
 
 - <https://www.baeldung.com/spring-bean>
+- <https://spring.io/guides/tutorials/rest/>
+- <https://spring.io/guides/gs/rest-service/>
+- <https://www.baeldung.com/spring-controllers>
 
 ### Dependency Injection / Inversion of Control
 
@@ -145,6 +155,8 @@ Spring Boot bietet Unterstützung für alle gängigen Datenbanksysteme. Sämtlic
 Mehr unter:
 
 - <https://liquibase.org/>
+- <https://docs.liquibase.com/tools-integrations/springboot/using-springboot-with-maven.html>
+- <https://www.baeldung.com/liquibase-refactor-schema-of-java-app>
 
 ### Security
 
@@ -156,6 +168,8 @@ Mehr unter:
 
 - <https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow>
 - <https://jwt.io/>
+- <https://www.baeldung.com/spring-security-oauth>
+- <https://www.baeldung.com/spring-security-oauth-auth-server>
 
 ## Spring Boot Demo service
 
