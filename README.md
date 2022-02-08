@@ -2,7 +2,7 @@
 
 **!!! Work in Progress !!!**
 
-## Spring Boot
+## Topics
 
 ### Project scaffolding
 
@@ -97,6 +97,15 @@ Mehr unter:
 - <https://restfulapi.net/>
 - <https://spring.io/guides/tutorials/rest/>
 - <https://www.baeldung.com/rest-with-spring-series>
+
+### OpenAPI / Swagger
+
+Es ist immer sinnvoll alle Endpunkte zu dokumentieren. Dies lässt sich mittels der _OpenAPI Specification_ automatisieren. Über entsprechende Java _Annotations_ im Controller steuert man die Erstellung. Die Dokumentation ist dann über einen öffentlichen Endpunkt (der Pfad ist konfigurierbar) im Browser einsehbar.
+
+Mehr unter:
+
+- <https://swagger.io/specification/>
+- <https://www.baeldung.com/spring-rest-openapi-documentation>
 
 ### Controller, Service, Repository
 
@@ -203,3 +212,7 @@ extra/db/dbseed.sh
 ```
 
 Ein erneuter Aufruf von `http://localhost:8080/api/users` liefert nun die zuvor angelegten User als _JSON_ Objekt zurück.
+
+### Swagger
+
+Unter `http://localhost:8080/apidoc` findest du die automatisch erstellte Dokumentation aller Endpunkte. Gesteuert wird die Erstellung über entsprechende Java _Annotations_ im Controller.
