@@ -42,15 +42,15 @@ public class UserController {
 
 record CreateUserDto(
     @NotNull
-    @Size(min = 1)
+    @Size(min = 1, message = "firstname must not be blank")
     String firstName,
 
     @NotNull
-    @Size(min = 1)
+    @Size(min = 1, message = "lastname must not be blank")
     String lastName,
 
     @NotNull
-    @Size(min = 3)
+    @Size(min = 3, message = "email address must be at least 3 characters long")
     String emailAddress) {
   User toDomain() {
     return new User(UUID.randomUUID(), firstName, lastName, emailAddress);

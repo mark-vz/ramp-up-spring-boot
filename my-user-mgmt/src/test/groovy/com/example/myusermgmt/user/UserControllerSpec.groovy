@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.ResultActions
+import org.springframework.web.bind.MethodArgumentNotValidException
 import spock.lang.Specification
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
@@ -26,7 +27,7 @@ class UserControllerSpec extends Specification {
     @SpringBean
     final UserService userService = Mock()
 
-    def "getUsers endpoint is called"() {
+    def "should get users"() {
         when:
         ResultActions resultActions = mockMvc.perform(get("/api/users"))
 
@@ -35,26 +36,42 @@ class UserControllerSpec extends Specification {
         resultActions
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json(
-                        '[{"firstName": "Mark", "lastName":  "Foo", "emailAddress":  "mark@..."}, {"firstName": "Jan", "lastName":  "Bar", "emailAddress":  "jan@..."}]'
-                ))
+                .andExpect(content().json('[{"firstName": "Mark", "lastName":  "Foo", "emailAddress":  "mark@..."}, {"firstName": "Jan", "lastName":  "Bar", "emailAddress":  "jan@..."}]'))
     }
 
-    def "createUser endpoint is called"() {
+    def "should create user"() {
         when:
-        ResultActions resultActions = mockMvc.perform(
-                post("/api/users")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content('{"firstName": "Jan", "lastName":  "Bar", "emailAddress":  "jan@..."}')
-        )
+        ResultActions resultActions = mockMvc.perform(post("/api/users")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content('{"firstName": "Jan", "lastName":  "Bar", "emailAddress":  "jan@..."}'))
 
         then:
         1 * userService.saveUser(_) >> user2
         resultActions
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json(
-                        '{"id": "' + user2.getId() + '" ,"firstName": "Jan", "lastName":  "Bar", "emailAddress":  "jan@..."}'
-                ))
+                .andExpect(content().json('{"id": "' + user2.getId() + '" ,"firstName": "Jan", "lastName":  "Bar", "emailAddress":  "jan@..."}'))
+    }
+
+    def "should throw validation error during user creation if names or email address are too short"() {
+        when:
+        ResultActions resultActions = mockMvc.perform(post("/api/users")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"firstName\": \"${firstname}\", \"lastName\":  \"${lastname}\", \"emailAddress\":  \"${emailAddress}\"}"))
+
+        then:
+        0 * userService.saveUser(_)
+        def result = resultActions
+                .andExpect(status().isBadRequest())
+                .andReturn()
+        and:
+        MethodArgumentNotValidException ex = (MethodArgumentNotValidException) result.getResolvedException()
+        ex.getFieldError().defaultMessage == errMsg
+
+        where:
+        firstname | lastname | emailAddress | errMsg
+        ''        | '1'      | '333'        | 'firstname must not be blank'
+        '1'       | ''       | '333'        | 'lastname must not be blank'
+        '1'       | '1'      | '22'         | 'email address must be at least 3 characters long'
     }
 }
