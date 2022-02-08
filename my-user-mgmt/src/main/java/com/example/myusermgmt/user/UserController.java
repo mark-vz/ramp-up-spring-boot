@@ -36,7 +36,7 @@ public class UserController {
   @Operation(description = "Creates a new user", summary = "Creates a new user")
   @Tag(name = "public api")
   public User createUser(@Valid @RequestBody final CreateUserDto userDto) {
-    return userService.saveUser(userDto.toDomain());
+    return userService.createUser(userDto.toDomain());
   }
 }
 

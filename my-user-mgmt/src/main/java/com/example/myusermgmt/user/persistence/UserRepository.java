@@ -13,7 +13,7 @@ public interface UserRepository extends JpaRepository<UserEntity, UUID> {
     return findAll().stream().map(UserEntity::toDomain).toList();
   }
 
-  default User saveUser(User user) {
+  default User createUser(User user) {
     return save(UserEntity.fromDomain(user)).toDomain();
   }
 }

@@ -25,14 +25,14 @@ class UserControllerSpec extends Specification {
     MockMvc mockMvc
 
     @SpringBean
-    final UserService userService = Mock()
+    final UserService userServiceMock = Mock()
 
     def "should get users"() {
         when:
         ResultActions resultActions = mockMvc.perform(get("/api/users"))
 
         then:
-        1 * userService.getAllUsers() >> [user1, user2]
+        1 * userServiceMock.getAllUsers() >> [user1, user2]
         resultActions
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -46,7 +46,7 @@ class UserControllerSpec extends Specification {
                 .content('{"firstName": "Jan", "lastName":  "Bar", "emailAddress":  "jan@..."}'))
 
         then:
-        1 * userService.saveUser(_) >> user2
+        1 * userServiceMock.createUser(_) >> user2
         resultActions
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -60,16 +60,16 @@ class UserControllerSpec extends Specification {
                 .content("{\"firstName\": \"${firstname}\", \"lastName\":  \"${lastname}\", \"emailAddress\":  \"${emailAddress}\"}"))
 
         then:
-        0 * userService.saveUser(_)
+        0 * userServiceMock.createUser(_)
         def result = resultActions
                 .andExpect(status().isBadRequest())
                 .andReturn()
         and:
         MethodArgumentNotValidException ex = (MethodArgumentNotValidException) result.getResolvedException()
-        ex.getFieldErrors().defaultMessage == errMsg
+        ex.getFieldErrors().defaultMessage.containsAll(errorMessages)
 
         where:
-        firstname | lastname | emailAddress | errMsg
+        firstname | lastname | emailAddress | errorMessages
         ''        | '1'      | '333'        | ['firstname must not be blank']
         '1'       | ''       | '333'        | ['lastname must not be blank']
         '1'       | '1'      | '22'         | ['email address must be at least 3 characters long']
