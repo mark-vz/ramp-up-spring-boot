@@ -4,6 +4,9 @@ spring:
   main:
     banner-mode: off
 
+  liquibase:
+    changeLog: "classpath:db/changelog/db.changelog-master.yml"
+
 management:
   endpoint:
     health:

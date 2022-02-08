@@ -123,12 +123,13 @@ Mehr unter:
 
 ### Spring Data JPA
 
-_Spring Data JPA_ erlaubt es, einfache DB-Queries statt mittels SQL über entsprechend benamte Methoden auszudrücken. Das folgende Repository (ein Spring Bean über das DB-Zugriffe stattfinden) stellt eine Methode zur Verfügung, welche alle User (Tabelle `myusers`, Spalten `emailAddress` und `lastname`) zurückgibt. Die normierten Methodennamen folgen in ihrem Aufbau spezifischen Regeln und Konventionen und lassen sich mit etwas Übung in die entsprechende SQL-Query übersetzen:
+_Spring Data JPA_ erlaubt es, einfache DB-Queries statt mittels SQL über entsprechend benamte Methoden auszudrücken. Das folgende Repository (ein Spring Bean über das DB-Zugriffe stattfinden) stellt eine Methode zur Verfügung, welche alle User (Tabelle `myusers`, Spalten `email_address` und `lastname`) zurückgibt. Die normierten Methodennamen folgen in ihrem Aufbau spezifischen Regeln und Konventionen und lassen sich mit etwas Übung in die entsprechende SQL-Query übersetzen:
 
 ```java
-@Entity(name = "myusers")
+@Entity
+@Table(name = "myusers")
 public interface UserRepository extends Repository<User, Long> {
-    // select * from myusers where emailAddress='<value of emailAddress>' and lastname='<value of lastname>';
+    // select * from myusers where email_address='<value of emailAddress>' and lastname='<value of lastname>';
     List<User> findByEmailAddressAndLastname(String emailAddress, String lastname);
 }
 ```
@@ -173,6 +174,32 @@ Mehr unter:
 
 ## Hands-on Spring Boot Service "My User Management"
 
-Der "my-user-mgmt" Service enthält einen Controller namens `UserController`, welcher einen Endpunkt `/api/users` zur Verfügung stellt.
+### Start
 
-TODO: More to come here ... :)
+Der "my-user-mgmt" Service benötigt eine _PostgreSQL_ Datenbank. Diese startest du lokal mittels _docker-compose_:
+
+```bash
+docker-compose up
+```
+
+Nun kannst du den Service starten:
+
+```bash
+./gradlew bootRun --args='--spring.profiles.active=local'
+```
+
+Neben der allgemeinen Konfiguration der Spring Boot Anwendung für den Produktionsbetrieb (in `application.yml`) gibt es eine weitere Konfiguration für den lokalen Betrieb auf dem Entwicklerrechner (in `application-local.yml`). Diese lokale Config setzt alle nötigen Parameter für die lokale Datenbank. Die `application.yml` wird beim Start der App immer eingelesen.
+
+### Endpunkte
+
+Der "my-user-mgmt" Service enthält einen Controller namens `UserController`, welcher zwei Endpunkte zur Verfügung stellt: `GET /api/users` und `POST /api/users`. Über diese beiden Endpunkte können vorhandene User zurück gegeben bzw. ein neuer User angelegt werden.
+
+Da bisher keine User angelegt wurden, liefert der `getUsers` Endpunkt eine leere Liste zurück. Dies lässt sich am einfachsten überprüfen, indem man im Browser `http://localhost:8080/api/users` öffnet.
+
+Um ein paar Test-Daten anzulegen (zu "seeden"), führen wir das `extra/db/dbseed.sh` shell script aus:
+
+```bash
+extra/db/dbseed.sh
+```
+
+Ein erneuter Aufruf von `http://localhost:8080/api/users` liefert nun die zuvor angelegten User als _JSON_ Objekt zurück.
