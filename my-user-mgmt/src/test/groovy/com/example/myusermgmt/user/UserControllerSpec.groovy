@@ -10,6 +10,11 @@ import org.springframework.test.web.servlet.ResultActions
 import org.springframework.web.bind.MethodArgumentNotValidException
 import spock.lang.Specification
 
+import javax.validation.ConstraintViolation
+import javax.validation.Validation
+import javax.validation.Validator
+import javax.validation.ValidatorFactory
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
@@ -74,5 +79,32 @@ class UserControllerSpec extends Specification {
         '1'       | ''       | '333'        | ['lastname must not be blank']
         '1'       | '1'      | '22'         | ['email address must be at least 3 characters long']
         ''        | ''       | '333'        | ['firstname must not be blank', 'lastname must not be blank']
+    }
+
+    def "should create and validate DTO correctly"() {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory()
+        Validator validator = factory.getValidator()
+
+        var createUserDto = new CreateUserDto(firstname, lastname, emailAddress)
+
+        Set<ConstraintViolation<CreateUserDto>> violations = validator.validate(createUserDto)
+
+        expect:
+        violations.size() == validationErrorCount
+        and:
+        createUserDto.firstName() == firstname
+        createUserDto.lastName() == lastname
+        createUserDto.emailAddress() == emailAddress
+
+        where:
+        firstname | lastname | emailAddress    | validationErrorCount
+        'a'       | 'b'      | 'm@example.com' | 0
+        ''        | 'b'      | 'm@example.com' | 1
+        'a'       | ''       | 'm@example.com' | 1
+        'a'       | 'b'      | ''              | 1
+        'a'       | 'b'      | '1'             | 1
+        'a'       | 'b'      | '12'            | 1
+        'a'       | 'b'      | '123'           | 0
+        ''        | ''       | ''              | 3
     }
 }
