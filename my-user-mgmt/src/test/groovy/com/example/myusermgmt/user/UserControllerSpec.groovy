@@ -66,12 +66,13 @@ class UserControllerSpec extends Specification {
                 .andReturn()
         and:
         MethodArgumentNotValidException ex = (MethodArgumentNotValidException) result.getResolvedException()
-        ex.getFieldError().defaultMessage == errMsg
+        ex.getFieldErrors().defaultMessage == errMsg
 
         where:
         firstname | lastname | emailAddress | errMsg
-        ''        | '1'      | '333'        | 'firstname must not be blank'
-        '1'       | ''       | '333'        | 'lastname must not be blank'
-        '1'       | '1'      | '22'         | 'email address must be at least 3 characters long'
+        ''        | '1'      | '333'        | ['firstname must not be blank']
+        '1'       | ''       | '333'        | ['lastname must not be blank']
+        '1'       | '1'      | '22'         | ['email address must be at least 3 characters long']
+        ''        | ''       | '333'        | ['firstname must not be blank', 'lastname must not be blank']
     }
 }
