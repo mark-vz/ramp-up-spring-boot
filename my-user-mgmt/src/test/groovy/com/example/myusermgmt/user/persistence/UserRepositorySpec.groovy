@@ -10,7 +10,7 @@ class UserRepositorySpec extends IntegrationSpecification {
     final User user1 = UserFixture.createUser()
 
     @Autowired
-    UserRepository userRepository;
+    UserRepository userRepository
 
     def "should correctly persist and retrieve user"() {
         when:

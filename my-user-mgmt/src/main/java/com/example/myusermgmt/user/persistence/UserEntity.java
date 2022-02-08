@@ -26,7 +26,7 @@ public class UserEntity {
   }
 
   static UserEntity fromDomain(final User user) {
-    return new UserEntity(user.getId(), user.getFirstName(), user.getLastName(), user.getEmailAddress());
+    return new UserEntity(user.id(), user.firstName(), user.lastName(), user.emailAddress());
   }
 
   User toDomain() {

@@ -56,7 +56,7 @@ class UserControllerSpec extends Specification {
         resultActions
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json('{"id": "' + user2.getId() + '" ,"firstName": "Jan", "lastName":  "Bar", "emailAddress":  "jan@..."}'))
+                .andExpect(content().json('{"id": "' + user2.id() + '" ,"firstName": "Jan", "lastName":  "Bar", "emailAddress":  "jan@..."}'))
     }
 
     def "should throw validation error during user creation if names or email address are too short"() {
