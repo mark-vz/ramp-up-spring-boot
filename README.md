@@ -80,6 +80,15 @@ Mehr unter:
 - <https://www.baeldung.com/docker-test-containers>
 - <https://www.baeldung.com/spring-boot-testcontainers-integration-test>
 
+### Test coverage
+
+Die Test-Coverage sagt uns detailliert, welche Teile des Codes (Klassen, Methoden, Zeilen, Verzweigungen) wie gut getestet sind. Wir streben eine Test-Coverage von mindestens 80% Prozent an. _JaCoCo_ ist ein Tool, welches uns die Test-Coverage unseres Java-Codes ermittelt. Seine Ausführung ist Teil des Build-Prozesses und wird im Build File konfiguriert.
+
+Mehr unter:
+
+- <https://www.baeldung.com/jacoco>
+- <https://www.jacoco.org/jacoco/trunk/index.html>
+
 ### REST
 
 In Spring Boot werden ein oder mehrere Endpunkte in einem sogenannten _Controller_ zusammen gefasst. Obschon man theoretisch komplett frei in der Organisation und Benamung seiner Controller-Klassen und Endpunkte ist, folgen wir den Vorschlägen aus dem RESTful API-Design:
