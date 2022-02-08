@@ -5,3 +5,7 @@ spring:
     password: local_test
   jpa:
     show-sql: true
+
+logging:
+  level:
+    web': DEBUG

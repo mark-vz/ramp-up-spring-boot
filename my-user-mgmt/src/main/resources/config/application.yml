@@ -4,6 +4,8 @@ spring:
   main:
     banner-mode: off
 
+  jpa:
+    open-in-view: false
   liquibase:
     changeLog: "classpath:db/changelog/db.changelog-master.yml"
 
