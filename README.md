@@ -1,6 +1,8 @@
 # Ramp-Up Spring Boot
 
-**!!! Work in Progress !!!**
+Note: This document is currently work in Progress
+
+[![CI with Gradle](https://github.com/mark-vz/ramp-up-spring-boot/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/mark-vz/ramp-up-spring-boot/actions/workflows/build.yml)
 
 ## Topics
 
