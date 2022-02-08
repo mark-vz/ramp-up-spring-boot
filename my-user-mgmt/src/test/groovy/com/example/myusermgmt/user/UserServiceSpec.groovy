@@ -1,5 +1,6 @@
 package com.example.myusermgmt.user
 
+import com.example.myusermgmt.fixtures.UserFixture
 import com.example.myusermgmt.user.domain.User
 import com.example.myusermgmt.user.persistence.UserRepository
 import org.spockframework.spring.SpringBean
@@ -7,8 +8,8 @@ import spock.lang.Specification
 
 class UserServiceSpec extends Specification {
 
-    final User user1 = new User(UUID.randomUUID(), "Mark", "Foo", "mark@...")
-    final User user2 = new User(UUID.randomUUID(), "Jan", "Bar", "jan@...")
+    final User user1 = UserFixture.createUser("Mark", "Foo", "mark@...")
+    final User user2 = UserFixture.createUser("Jan", "Bar", "jan@...")
 
     final List<User> testUsers = [user1, user2]
 

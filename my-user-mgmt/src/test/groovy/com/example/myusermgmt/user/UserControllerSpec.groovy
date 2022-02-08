@@ -1,5 +1,6 @@
 package com.example.myusermgmt.user
 
+import com.example.myusermgmt.fixtures.UserFixture
 import com.example.myusermgmt.user.domain.User
 import org.spockframework.spring.SpringBean
 import org.springframework.beans.factory.annotation.Autowired
@@ -23,8 +24,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(controllers = UserController.class)
 class UserControllerSpec extends Specification {
 
-    final User user1 = new User(UUID.randomUUID(), "Mark", "Foo", "mark@...")
-    final User user2 = new User(UUID.randomUUID(), "Jan", "Bar", "jan@...")
+    final User user1 = UserFixture.createUser("Mark", "Foo", "mark@...")
+    final User user2 = UserFixture.createUser("Jan", "Bar", "jan@...")
 
     @Autowired
     MockMvc mockMvc
@@ -71,10 +72,12 @@ class UserControllerSpec extends Specification {
                 .andReturn()
         and:
         MethodArgumentNotValidException ex = (MethodArgumentNotValidException) result.getResolvedException()
-        ex.getFieldErrors().defaultMessage.containsAll(errorMessages)
+        List<String> errorMessages = ex.getFieldErrors().defaultMessage
+        errorMessages.size() == expectedErrorMessages.size()
+        errorMessages.containsAll(expectedErrorMessages)
 
         where:
-        firstname | lastname | emailAddress | errorMessages
+        firstname | lastname | emailAddress | expectedErrorMessages
         ''        | '1'      | '333'        | ['firstname must not be blank']
         '1'       | ''       | '333'        | ['lastname must not be blank']
         '1'       | '1'      | '22'         | ['email address must be at least 3 characters long']

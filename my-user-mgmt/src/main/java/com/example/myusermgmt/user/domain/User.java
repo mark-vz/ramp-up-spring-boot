@@ -30,4 +30,36 @@ public class User {
   public String getEmailAddress() {
     return emailAddress;
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    User user = (User) o;
+
+    if (!id.equals(user.id)) {
+      return false;
+    }
+    if (!firstName.equals(user.firstName)) {
+      return false;
+    }
+    if (!lastName.equals(user.lastName)) {
+      return false;
+    }
+    return emailAddress.equals(user.emailAddress);
+  }
+
+  @Override
+  public int hashCode() {
+    int result = id.hashCode();
+    result = 31 * result + firstName.hashCode();
+    result = 31 * result + lastName.hashCode();
+    result = 31 * result + emailAddress.hashCode();
+    return result;
+  }
 }

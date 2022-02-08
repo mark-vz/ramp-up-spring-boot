@@ -18,6 +18,10 @@ repositories {
 }
 
 dependencyManagement {
+    imports {
+        mavenBom("org.testcontainers:testcontainers-bom:${testcontainersVersion}")
+    }
+
     dependencies {
         dependency 'org.springdoc:springdoc-openapi-ui:1.6.5'
         dependency 'io.swagger.core.v3:swagger-annotations:2.1.12'
@@ -32,6 +36,8 @@ dependencyManagement {
             entry 'spock-core'
             entry 'spock-spring'
         }
+
+        dependency "org.testcontainers:postgresql:${testcontainersVersion}"
     }
 }
 
@@ -67,6 +73,11 @@ dependencies {
     // Spock
     testImplementation 'org.spockframework:spock-core'
     testImplementation 'org.spockframework:spock-spring'
+
+    // Testcontainers
+    testImplementation 'org.testcontainers:postgresql'
+    testImplementation(enforcedPlatform("org.testcontainers:testcontainers-bom:${testcontainersVersion}"))
+    testImplementation("org.testcontainers:junit-jupiter")
 }
 
 // ******
@@ -83,7 +94,7 @@ tasks.named('test') {
 
 jacoco {
     toolVersion = "${jacocoVersion}"
-    reportsDirectory = layout.buildDirectory.dir("$buildDir/reports/jacoco")
+    reportsDirectory = layout.buildDirectory.dir("$buildDir/reports/jacoco").get()
 }
 
 jacocoTestReport {

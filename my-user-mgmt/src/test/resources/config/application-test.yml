@@ -1,0 +1,10 @@
+logging:
+  # Unset default configuration to not use json representation when executing local
+  config:
+  level:
+    root: INFO
+    com.rewe.digital.contentofferdetails: DEBUG
+
+spring:
+  jpa:
+    show-sql: true
