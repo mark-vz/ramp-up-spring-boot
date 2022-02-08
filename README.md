@@ -215,7 +215,7 @@ Nun kannst du den Service starten:
 
 Neben der allgemeinen Konfiguration der Spring Boot Anwendung für den Produktionsbetrieb (in `application.yml`) gibt es eine weitere Konfiguration für den lokalen Betrieb auf dem Entwicklerrechner (in `application-local.yml`). Diese lokale Config setzt alle nötigen Parameter für die lokale Datenbank. Die `application.yml` wird beim Start der App immer eingelesen.
 
-### Endpunkte
+### Endpoints
 
 Der "my-user-mgmt" Service enthält einen Controller namens `UserController`, welcher zwei Endpunkte zur Verfügung stellt: `GET /api/users` und `POST /api/users`. Über diese beiden Endpunkte können vorhandene User zurück gegeben bzw. ein neuer User angelegt werden.
 
@@ -232,3 +232,7 @@ Ein erneuter Aufruf von `http://localhost:8080/api/users` liefert nun die zuvor 
 ### Swagger
 
 Unter `http://localhost:8080/apidoc` findest du die automatisch erstellte Dokumentation aller Endpunkte. Gesteuert wird die Erstellung über entsprechende Java _Annotations_ im Controller.
+
+### Metrics
+
+Die im Prometheus-Format vorliegenden Metriken können über ihre jeweiligen Endpunkte unterhalb von `http://localhost:8080/admin` erreicht werden. So ist z.B. der "Health" Endpunkt unter `http://localhost:8080/admin/health` erreichbar. Er gibt unter anderem Auskunft darüber, ob die Anwendung läuft sowie antwortet und genug Speicherplatz vorhanden ist, etc.
