@@ -199,7 +199,7 @@ Mehr unter:
 
 ## Hands-on Spring Boot Service "My User Management"
 
-### Start
+### Start / Tests / App Config
 
 Der "my-user-mgmt" Service benötigt eine _PostgreSQL_ Datenbank. Diese startest du lokal mittels _docker-compose_:
 
@@ -213,7 +213,15 @@ Nun kannst du den Service starten:
 ./gradlew bootRun --args='--spring.profiles.active=local'
 ```
 
-Neben der allgemeinen Konfiguration der Spring Boot Anwendung für den Produktionsbetrieb (in `application.yml`) gibt es eine weitere Konfiguration für den lokalen Betrieb auf dem Entwicklerrechner (in `application-local.yml`). Diese lokale Config setzt alle nötigen Parameter für die lokale Datenbank. Die `application.yml` wird beim Start der App immer eingelesen.
+Neben der allgemeinen Konfiguration der Spring Boot Anwendung für den Produktionsbetrieb (in `application.yml`) gibt es eine weitere Konfiguration für den lokalen Betrieb auf dem Entwicklerrechner (in `application-local.yml`). Diese lokale Config setzt alle nötigen Parameter für die lokale Datenbank. Darüber hinaus sind beliebig viele weitere Config Files denkbar, z.B. kann eine Konfiguration sinnvoll sein, die nur während der Ausführung der Tests greift. Die `application.yml` wird beim Start der App immer eingelesen.
+
+Mit
+
+```bash
+./gradlew check
+```
+
+kannst du alle Tests ausführen.
 
 ### Endpoints
 
