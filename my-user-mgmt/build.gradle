@@ -24,13 +24,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
+    // Production-ready features, Metrics, Monitoring
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
     // DB
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     runtimeOnly 'org.postgresql:postgresql'
     implementation 'org.liquibase:liquibase-core'
-
-    // Metrics / Monitoring
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
     // OpenAPI + Swagger UI
     implementation("org.springdoc:springdoc-openapi-ui")

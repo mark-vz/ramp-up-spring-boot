@@ -181,6 +181,22 @@ Mehr unter:
 - <https://www.baeldung.com/spring-security-oauth>
 - <https://www.baeldung.com/spring-security-oauth-auth-server>
 
+### Actuator / Prometheus / Grafana
+
+Mithilfe der "actuator" Dependency wird eine Spring Boot Anwendung um sogenannte _Actuator_ Endpunkte "angereichert". Sie ermöglichen u.a. die Überwachung der Anwendung. Spring Boot enthält eine Reihe integrierter Endpunkte und erlaubt, eigene hinzuzufügen. So liefert z.B. der "Health" Endpunkt grundlegende Informationen zum Zustand der Anwendung.
+
+Sämtliche Metriken können in einem speziellen Format zur Verfügung gestellt werden, sodass ein separat laufender _Prometheus_ server die Metriken über ihre Endpunkte "scrapen" kann. Prometheus dient der Überwachung einer oder mehrerer Anwendungen.
+
+_Grafana_ wiederum kann die Monitoring-Daten bei Prometheus anfragen und diese in individuell gestalteten Boards grafisch ansprechend darstellen.
+
+Mehr unter:
+
+- <https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html>
+- <https://spring.io/guides/gs/actuator-service/>
+- <https://www.baeldung.com/spring-boot-actuators>
+- <https://prometheus.io/>
+- <https://grafana.com/>
+
 ## Hands-on Spring Boot Service "My User Management"
 
 ### Start
