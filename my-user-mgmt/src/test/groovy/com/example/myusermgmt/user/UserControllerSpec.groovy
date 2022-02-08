@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.ResultActions
 import spock.lang.Specification
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
@@ -23,20 +24,37 @@ class UserControllerSpec extends Specification {
     MockMvc mockMvc
 
     @SpringBean
-    final UserController sut = Mock()
+    final UserService userService = Mock()
 
     def "getUsers endpoint is called"() {
         when:
         ResultActions resultActions = mockMvc.perform(get("/api/users"))
 
         then:
-        1 * sut.getUsers() >> [user1, user2]
+        1 * userService.getAllUsers() >> [user1, user2]
         resultActions
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(
                         '[{"firstName": "Mark", "lastName":  "Foo", "emailAddress":  "mark@..."}, {"firstName": "Jan", "lastName":  "Bar", "emailAddress":  "jan@..."}]'
                 ))
-                .andReturn()
+    }
+
+    def "createUser endpoint is called"() {
+        when:
+        ResultActions resultActions = mockMvc.perform(
+                post("/api/users")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content('{"firstName": "Jan", "lastName":  "Bar", "emailAddress":  "jan@..."}')
+        )
+
+        then:
+        1 * userService.saveUser(_) >> user2
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(
+                        '{"id": "' + user2.getId() + '" ,"firstName": "Jan", "lastName":  "Bar", "emailAddress":  "jan@..."}'
+                ))
     }
 }

@@ -32,10 +32,10 @@ public class UserController {
     return userService.getAllUsers();
   }
 
-  @PostMapping(path = "/users")
+  @PostMapping(path = "/users", consumes = MediaType.APPLICATION_JSON_VALUE)
   @Operation(description = "Creates a new user", summary = "Creates a new user")
   @Tag(name = "public api")
-  public User createUsers(@Valid @RequestBody final CreateUserDto userDto) {
+  public User createUser(@Valid @RequestBody final CreateUserDto userDto) {
     return userService.saveUser(userDto.toDomain());
   }
 }
