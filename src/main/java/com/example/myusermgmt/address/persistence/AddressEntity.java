@@ -25,7 +25,7 @@ public class AddressEntity {
   protected AddressEntity() {
   }
 
-  public AddressEntity(UUID id, String street, String zipcode, String city, UserEntity userEntity) {
+  private AddressEntity(UUID id, String street, String zipcode, String city, UserEntity userEntity) {
     this.id = id;
     this.street = street;
     this.zipcode = zipcode;
@@ -41,7 +41,7 @@ public class AddressEntity {
     return new Address(id, street, zipcode, city, user.toDomain());
   }
 
-  public AddressView toView() {
+  public AddressView toAddressView() {
     return new AddressView(street, zipcode, city);
   }
 }

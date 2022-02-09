@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface ContactViewRepository extends JpaRepository<UserEntity, UUID> {
 
   default List<ContactView> getAllContactViews() {
-    return findAll().stream().map(ContactView::toView).toList();
+    return findAll().stream().map(UserEntity::toContactView).toList();
   }
 }

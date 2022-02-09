@@ -2,6 +2,7 @@ package com.example.myusermgmt.user.persistence;
 
 import com.example.myusermgmt.address.persistence.AddressEntity;
 import com.example.myusermgmt.user.domain.User;
+import com.example.myusermgmt.user.readmodel.ContactView;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.Entity;
@@ -31,10 +32,6 @@ public class UserEntity {
     this.emailAddress = emailAddress;
   }
 
-  public List<AddressEntity> getAddresses() {
-    return addresses;
-  }
-
   public static UserEntity fromDomain(final User user) {
     return new UserEntity(
         user.id(),
@@ -50,6 +47,16 @@ public class UserEntity {
         firstName,
         lastName,
         emailAddress
+    );
+  }
+
+  ContactView toContactView() {
+    return new ContactView(
+        id,
+        firstName,
+        lastName,
+        emailAddress,
+        addresses.stream().map(AddressEntity::toAddressView).toList()
     );
   }
 }
