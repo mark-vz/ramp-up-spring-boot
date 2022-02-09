@@ -1,3 +1,5 @@
+#!/bin/sh
+
 function create_user () {
     local firstname="${1}"
     local lastname="${2}"

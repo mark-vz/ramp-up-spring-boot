@@ -77,11 +77,11 @@ class UserControllerSpec extends Specification {
         errorMessages.containsAll(expectedErrorMessages)
 
         where:
-        firstname | lastname | emailAddress | expectedErrorMessages
-        ''        | '1'      | '333'        | ['firstname must not be blank']
-        '1'       | ''       | '333'        | ['lastname must not be blank']
-        '1'       | '1'      | '22'         | ['email address must be at least 3 characters long']
-        ''        | ''       | '333'        | ['firstname must not be blank', 'lastname must not be blank']
+        firstname | lastname | emailAddress || expectedErrorMessages
+        ''        | '1'      | '333'        || ['firstname must not be blank']
+        '1'       | ''       | '333'        || ['lastname must not be blank']
+        '1'       | '1'      | '22'         || ['email address must be at least 3 characters long']
+        ''        | ''       | '333'        || ['firstname must not be blank', 'lastname must not be blank']
     }
 
     def "should create and validate DTO correctly"() {
@@ -100,14 +100,14 @@ class UserControllerSpec extends Specification {
         createUserDto.emailAddress() == emailAddress
 
         where:
-        firstname | lastname | emailAddress    | validationErrorCount
-        'a'       | 'b'      | 'm@example.com' | 0
-        ''        | 'b'      | 'm@example.com' | 1
-        'a'       | ''       | 'm@example.com' | 1
-        'a'       | 'b'      | ''              | 1
-        'a'       | 'b'      | '1'             | 1
-        'a'       | 'b'      | '12'            | 1
-        'a'       | 'b'      | '123'           | 0
-        ''        | ''       | ''              | 3
+        firstname | lastname | emailAddress    || validationErrorCount
+        'a'       | 'b'      | 'm@example.com' || 0
+        ''        | 'b'      | 'm@example.com' || 1
+        'a'       | ''       | 'm@example.com' || 1
+        'a'       | 'b'      | ''              || 1
+        'a'       | 'b'      | '1'             || 1
+        'a'       | 'b'      | '12'            || 1
+        'a'       | 'b'      | '123'           || 0
+        ''        | ''       | ''              || 3
     }
 }
