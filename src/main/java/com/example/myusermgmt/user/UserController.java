@@ -59,7 +59,8 @@ record CreateUserDto(
 
     @NotNull
     @Size(min = 3, message = "email address must be at least 3 characters long")
-    String emailAddress) {
+    String emailAddress
+) {
   User toDomain() {
     return new User(UUID.randomUUID(), firstName, lastName, emailAddress);
   }

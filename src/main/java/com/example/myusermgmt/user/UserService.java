@@ -23,6 +23,10 @@ public class UserService {
     return userRepository.getAllUsers();
   }
 
+  public User getUserByEmailAddress(final String emailAddress) {
+    return userRepository.getUserByEmailAddress(emailAddress);
+  }
+
   @Transactional
   public List<ContactView> getAllContactViews() {
     return contactViewRepository.getAllContactViews();
