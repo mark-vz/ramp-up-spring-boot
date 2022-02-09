@@ -1,6 +1,7 @@
 package com.example.myusermgmt.user;
 
 import com.example.myusermgmt.user.domain.User;
+import com.example.myusermgmt.user.readmodel.Contact;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
@@ -30,6 +31,13 @@ public class UserController {
   @Tag(name = "public api")
   public List<User> getUsers() {
     return userService.getAllUsers();
+  }
+
+  @GetMapping(path = "/contacts")
+  @Operation(description = "Gets all contacts", summary = "Gets all contacts")
+  @Tag(name = "public api")
+  public List<Contact> getContacts() {
+    return userService.getAllContacts();
   }
 
   @PostMapping(path = "/users", consumes = MediaType.APPLICATION_JSON_VALUE)
