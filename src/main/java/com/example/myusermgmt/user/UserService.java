@@ -3,7 +3,7 @@ package com.example.myusermgmt.user;
 import com.example.myusermgmt.user.domain.User;
 import com.example.myusermgmt.user.persistence.ContactViewRepository;
 import com.example.myusermgmt.user.persistence.UserRepository;
-import com.example.myusermgmt.user.readmodel.Contact;
+import com.example.myusermgmt.user.readmodel.ContactView;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
   private final UserRepository userRepository;
-  private final ContactViewRepository contactRepository;
+  private final ContactViewRepository contactViewRepository;
 
-  public UserService(UserRepository userRepository, ContactViewRepository contactRepository) {
+  public UserService(UserRepository userRepository, ContactViewRepository contactViewRepository) {
     this.userRepository = userRepository;
-    this.contactRepository = contactRepository;
+    this.contactViewRepository = contactViewRepository;
   }
 
   public List<User> getAllUsers() {
@@ -24,8 +24,8 @@ public class UserService {
   }
 
   @Transactional
-  public List<Contact> getAllContacts() {
-    return contactRepository.getAllContacts();
+  public List<ContactView> getAllContactViews() {
+    return contactViewRepository.getAllContactViews();
   }
 
   public User createUser(final User user) {

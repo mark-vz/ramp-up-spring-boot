@@ -1,8 +1,12 @@
 package com.example.myusermgmt.user
 
+import com.example.myusermgmt.address.readmodel.AddressView
+import com.example.myusermgmt.fixtures.ContactViewFixture
 import com.example.myusermgmt.fixtures.UserFixture
 import com.example.myusermgmt.user.domain.User
+import com.example.myusermgmt.user.persistence.ContactViewRepository
 import com.example.myusermgmt.user.persistence.UserRepository
+import com.example.myusermgmt.user.readmodel.ContactView
 import org.spockframework.spring.SpringBean
 import spock.lang.Specification
 
@@ -11,12 +15,22 @@ class UserServiceSpec extends Specification {
     final User user1 = UserFixture.createUser("Mark", "Foo", "mark@...")
     final User user2 = UserFixture.createUser("Jan", "Bar", "jan@...")
 
+    final AddressView testAddressView1 = new AddressView("str1", "50354", "Hürth")
+    final AddressView testAddressView2 = new AddressView("str2", "50123", "Brühl")
+
+    final ContactView testContactView1 = ContactViewFixture.createContactView("Mark", "Foo", "mark@...", [testAddressView1, testAddressView2])
+    final ContactView testContactView2 = ContactViewFixture.createContactView("Jan", "Bar", "jan@...", [testAddressView1])
+
     final List<User> testUsers = [user1, user2]
+    final List<ContactView> testContactViews = [testContactView1, testContactView2]
 
     @SpringBean
     final UserRepository userRepositoryMock = Mock()
 
-    final UserService sut = new UserService(userRepositoryMock)
+    @SpringBean
+    final ContactViewRepository contactViewRepositoryMock = Mock()
+
+    final UserService sut = new UserService(userRepositoryMock, contactViewRepositoryMock)
 
     def "should get all users"() {
         when:
@@ -25,6 +39,15 @@ class UserServiceSpec extends Specification {
         then:
         1 * userRepositoryMock.getAllUsers() >> testUsers
         users == testUsers
+    }
+
+    def "should get all contact views"() {
+        when:
+        List<ContactView> contactViews = sut.getAllContactViews()
+
+        then:
+        1 * contactViewRepositoryMock.getAllContactViews() >> testContactViews
+        contactViews == testContactViews
     }
 
     def "should create a new user"() {

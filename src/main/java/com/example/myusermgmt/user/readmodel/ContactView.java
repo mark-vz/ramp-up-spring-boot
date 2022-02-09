@@ -6,7 +6,7 @@ import com.example.myusermgmt.user.persistence.UserEntity;
 import java.util.List;
 import java.util.UUID;
 
-public record Contact(
+public record ContactView(
     UUID id,
     String firstName,
     String lastName,
@@ -14,8 +14,8 @@ public record Contact(
     List<AddressView> addresses
 ) {
 
-  public static Contact toView(final UserEntity userEntity) {
-    return new Contact(
+  public static ContactView toView(final UserEntity userEntity) {
+    return new ContactView(
         userEntity.toDomain().id(),
         userEntity.toDomain().firstName(),
         userEntity.toDomain().lastName(),
