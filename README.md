@@ -1,4 +1,4 @@
-# Ramp-Up Spring Boot
+# Ramp-Up: Spring Boot and more
 
 Note: This document is currently work in progress.
 
@@ -210,7 +210,19 @@ Mehr unter:
 
 ### GitHub Actions
 
-todo...
+_GitHub Actions_ ist eine CI/CD Plattform mittels der komplette Build-Pipelines automatisiert werden können. Durch sogenannte _Workflows_, welche Event-getriggert starten, lassen sich verschiedene Prozesse, wie z.B. Build, Test und Deploy, abbilden. Die Workflows werden in YAML Dateien konfiguriert und sind Teil des Projekts. Bei der REWE digital löst GitHub Actions mittelfristig _Jenkins_ ab.
+
+Mehr unter:
+
+- <https://github.com/features/actions>
+
+### Jib
+
+Mittels _Jib_ kann ein optimiertes Docker-Image einer Java-Anwendung erstellt werden. Wir verwenden Jib als Gradle-Plugin.
+
+Mehr unter:
+
+- <https://github.com/GoogleContainerTools/jib>
 
 ## Hands-on Spring Boot Service "My User Management"
 
