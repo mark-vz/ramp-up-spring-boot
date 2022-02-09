@@ -21,4 +21,8 @@ public class UserService {
   public User createUser(final User user) {
     return userRepository.createUser(user);
   }
+
+  public User getUser(final String userId) {
+    return userRepository.getUser(userId);
+  }
 }

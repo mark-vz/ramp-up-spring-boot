@@ -1,3 +1,5 @@
 databaseChangeLog:
   - include:
       file: db/changelog/0001_create_users_table.sql
+  - include:
+      file: db/changelog/0002_create_addresses_table.sql

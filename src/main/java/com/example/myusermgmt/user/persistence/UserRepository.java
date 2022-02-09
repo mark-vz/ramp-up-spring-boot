@@ -16,4 +16,8 @@ public interface UserRepository extends JpaRepository<UserEntity, UUID> {
   default User createUser(User user) {
     return save(UserEntity.fromDomain(user)).toDomain();
   }
+
+  default User getUser(String userId) {
+    return findById(UUID.fromString(userId)).get().toDomain();
+  }
 }
