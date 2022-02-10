@@ -41,6 +41,17 @@ class UserServiceSpec extends Specification {
         users == testUsers
     }
 
+    def "should get user by email address"() {
+        given:
+        def emailAddress = "foo@example.com"
+        when:
+        User user = sut.getUserByEmailAddress(emailAddress)
+
+        then:
+        1 * userRepositoryMock.getUserByEmailAddress(emailAddress) >> testUser1
+        user == testUser1
+    }
+
     def "should get all contact views"() {
         when:
         List<ContactView> contactViews = sut.getAllContactViews()

@@ -10,6 +10,11 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.ResultActions
 import spock.lang.Specification
 
+import javax.validation.ConstraintViolation
+import javax.validation.Validation
+import javax.validation.Validator
+import javax.validation.ValidatorFactory
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
@@ -51,5 +56,39 @@ class AddressControllerSpec extends Specification {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json('{"id": "' + testAddress1.id() + '" ,"street": "street 1", "zipcode":  "12345", "city":  "Foo City", "user": {"firstName":  "John", "lastName": "Doe", "emailAddress": "john@example.com"}}'))
+    }
+
+    def "should create and validate DTO correctly"() {
+        final ValidatorFactory factory = Validation.buildDefaultValidatorFactory()
+        final Validator validator = factory.getValidator()
+
+        final var createAddressDto = new CreateAddressDto(email, street, zipcode, city)
+
+        Set<ConstraintViolation<CreateAddressDto>> violations = validator.validate(createAddressDto)
+
+        expect:
+        violations.size() == validationErrorCount
+        and:
+        createAddressDto.email() == email
+        createAddressDto.street() == street
+        createAddressDto.zipcode() == zipcode
+        createAddressDto.city() == city
+
+        where:
+        email           | street | zipcode | city  || validationErrorCount
+        'm@example.com' | 'a'    | '12345' | 'c'   || 0
+        'm@example.com' | ''     | '12345' | 'c'   || 1
+        'm@example.com' | 'a'    | ''      | 'c'   || 1
+        'm@example.com' | 'a'    | '12345' | ''    || 1
+        ''              | 'a'    | '12345' | ''    || 2
+        '1'             | 'a'    | '12345' | 'c'   || 1
+        '12'            | 'a'    | '12345' | 'cc'  || 1
+        '123'           | 'a'    | '12345' | 'ccc' || 0
+        ''              | ''     | ''      | ''    || 4
+        ''              | ''     | '1'     | ''    || 4
+        ''              | ''     | '12'    | ''    || 4
+        ''              | ''     | '123'   | ''    || 4
+        ''              | ''     | '1234'  | ''    || 4
+        ''              | ''     | '12345' | ''    || 3
     }
 }

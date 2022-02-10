@@ -106,10 +106,10 @@ class UserControllerSpec extends Specification {
     }
 
     def "should create and validate DTO correctly"() {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory()
-        Validator validator = factory.getValidator()
+        final ValidatorFactory factory = Validation.buildDefaultValidatorFactory()
+        final Validator validator = factory.getValidator()
 
-        var createUserDto = new CreateUserDto(firstname, lastname, emailAddress)
+        final var createUserDto = new CreateUserDto(firstname, lastname, emailAddress)
 
         Set<ConstraintViolation<CreateUserDto>> violations = validator.validate(createUserDto)
 
