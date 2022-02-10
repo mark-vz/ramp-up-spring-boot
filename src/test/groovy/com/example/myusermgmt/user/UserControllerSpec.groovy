@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.MvcResult
 import org.springframework.test.web.servlet.ResultActions
 import org.springframework.web.bind.MethodArgumentNotValidException
 import spock.lang.Specification
@@ -88,7 +89,7 @@ class UserControllerSpec extends Specification {
 
         then:
         0 * userServiceMock.createUser(_)
-        def result = resultActions
+        MvcResult result = resultActions
                 .andExpect(status().isBadRequest())
                 .andReturn()
         and:

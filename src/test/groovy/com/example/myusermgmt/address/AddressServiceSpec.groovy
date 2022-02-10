@@ -47,4 +47,17 @@ class AddressServiceSpec extends Specification {
         1 * addressRepositoryMock.createAddress(_) >> testAddress1
         createdAddress == testAddress1
     }
+
+    def "createAddress: should throw exception if no user for given email address exists"() {
+        when:
+        Address createdAddress = sut.createAddress(testAddressWithUserEmail)
+
+        then:
+        1 * userServiceMock.getUserByEmailAddress(testAddressWithUserEmail.userEmailAddress()) >> {
+            throw new IllegalArgumentException("user not found for given email address")
+        }
+        0 * addressRepositoryMock.createAddress(_)
+        IllegalArgumentException ex = thrown()
+        ex.message == "user not found for given email address"
+    }
 }

@@ -53,6 +53,19 @@ class UserServiceSpec extends Specification {
         user == testUser1
     }
 
+    def "getUserByEmailAddress: should throw exception if no user for given email address exists"() {
+        given:
+        def emailAddress = "does-not-exist@example.com"
+
+        when:
+        sut.getUserByEmailAddress(emailAddress)
+
+        then:
+        1 * userRepositoryMock.getUserByEmailAddress(emailAddress) >> null
+        IllegalArgumentException ex = thrown()
+        ex.message == "user not found for given email address"
+    }
+
     def "should get all contact views"() {
         when:
         List<ContactView> contactViews = sut.getAllContactViews()

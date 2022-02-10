@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.MvcResult
 import org.springframework.test.web.servlet.ResultActions
 import spock.lang.Specification
 
@@ -56,6 +57,24 @@ class AddressControllerSpec extends Specification {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json('{"id": "' + testAddress1.id() + '" ,"street": "street 1", "zipcode":  "12345", "city":  "Foo City", "user": {"firstName":  "John", "lastName": "Doe", "emailAddress": "john@example.com"}}'))
+    }
+
+    def "should fail creating address if given email address is unknown"() {
+        when:
+        ResultActions resultActions = mockMvc.perform(post("/api/addresses")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content('{"email": "does-not-exist@example.com", "street": "street 1", "zipcode":  "12345", "city":  "Foo City"}'))
+
+        then:
+        1 * addressServiceMock.createAddress(_) >> {
+            throw new IllegalArgumentException("user not found for given email address");
+        }
+        MvcResult result = resultActions
+                .andExpect(status().isNotFound())
+                .andReturn()
+        and:
+        result.response.getStatus() == 404
+        result.response.getErrorMessage() == "No user found for email address does-not-exist@example.com"
     }
 
     def "should create and validate DTO correctly"() {

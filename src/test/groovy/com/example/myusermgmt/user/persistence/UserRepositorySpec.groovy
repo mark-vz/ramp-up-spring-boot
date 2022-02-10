@@ -40,10 +40,7 @@ class UserRepositorySpec extends IntegrationSpecification {
     }
 
     def "should return null if no user for given email address exists"() {
-        when:
-        User unknownUser = userRepository.getUserByEmailAddress("not-existent@example.com")
-
-        then:
-        unknownUser == null
+        expect:
+        userRepository.getUserByEmailAddress("not-existent@example.com") == null
     }
 }

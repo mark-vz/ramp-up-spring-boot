@@ -9,12 +9,14 @@ import java.util.UUID;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping(path = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -37,7 +39,11 @@ public class AddressController {
   @Operation(description = "Creates a new address for a user. The user is identified via email address.", summary = "Creates a new address for a user")
   @Tag(name = "public api")
   public Address createAddress(@Valid @RequestBody final CreateAddressDto addressDto) {
-    return addressService.createAddress(addressDto.toWriteModel());
+    try {
+      return addressService.createAddress(addressDto.toWriteModel());
+    } catch (IllegalArgumentException ex) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user found for email address " + addressDto.email());
+    }
   }
 }
 

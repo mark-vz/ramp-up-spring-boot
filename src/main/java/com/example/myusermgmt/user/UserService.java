@@ -24,7 +24,11 @@ public class UserService {
   }
 
   public User getUserByEmailAddress(final String emailAddress) {
-    return userRepository.getUserByEmailAddress(emailAddress);
+    final User user = userRepository.getUserByEmailAddress(emailAddress);
+    if (user == null) {
+      throw new IllegalArgumentException("user not found for given email address");
+    }
+    return user;
   }
 
   @Transactional
