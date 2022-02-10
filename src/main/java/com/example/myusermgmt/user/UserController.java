@@ -1,6 +1,9 @@
 package com.example.myusermgmt.user;
 
+import com.example.myusermgmt.address.domain.Address;
+import com.example.myusermgmt.address.readModel.AddressReadModel;
 import com.example.myusermgmt.user.domain.User;
+import com.example.myusermgmt.user.readModel.Contact;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -37,6 +40,13 @@ public class UserController {
         return userService.createUser(userDto.toDomain());
     }
 
+    @GetMapping(path = "/contacts")
+    @Operation(description = "Fetch contacts", summary = "Get existing contacts")
+    @Tag(name = "public api")
+    public List<Contact> getAllContacts() {
+        return userService.getAllContacts();
+    }
+
     @GetMapping(path = "/users/{userId}")
     @Operation(description = "Get an existing user", summary = "Get existing user")
     @Tag(name = "public api")
@@ -59,5 +69,24 @@ record CreateUserDto(
         String emailAddress) {
     User toDomain() {
         return new User(UUID.randomUUID(), firstName, lastName, emailAddress);
+    }
+}
+
+record CreateUserReadDto(
+        @NotNull
+        @Size(min = 1, message = "firstname must not be blank")
+        String firstName,
+
+        @NotNull
+        @Size(min = 1, message = "lastname must not be blank")
+        String lastName,
+
+        @NotNull
+        @Size(min = 3, message = "email address must be at least 3 characters long")
+        String emailAddress,
+
+        List<AddressReadModel> addresses) {
+        Contact toDomain() {
+        return new Contact(firstName, lastName, emailAddress, addresses);
     }
 }

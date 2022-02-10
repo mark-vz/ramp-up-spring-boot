@@ -1,6 +1,7 @@
 package com.example.myusermgmt.address.persistence;
 
 import com.example.myusermgmt.address.domain.Address;
+import com.example.myusermgmt.address.readModel.AddressReadModel;
 import com.example.myusermgmt.user.domain.User;
 import com.example.myusermgmt.user.persistence.UserEntity;
 
@@ -42,7 +43,11 @@ public class AddressEntity {
     );
   }
 
-   public Address toDomain() {
+  public Address toDomain() {
     return new Address(id, street, zipcode, city, user.getId().toString());
+  }
+
+  public AddressReadModel toReadModel() {
+    return new AddressReadModel(street, zipcode, city);
   }
 }

@@ -1,8 +1,11 @@
 package com.example.myusermgmt.user.persistence;
 
+import com.example.myusermgmt.address.domain.Address;
 import com.example.myusermgmt.address.persistence.AddressEntity;
 import com.example.myusermgmt.user.domain.User;
+import com.example.myusermgmt.user.readModel.Contact;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.*;
@@ -35,6 +38,15 @@ public class UserEntity {
 
   public User toDomain() {
     return new User(id, firstName, lastName, emailAddress);
+  }
+
+  public Contact toContactDomain() {
+    return new Contact(
+            this.firstName,
+            this.lastName,
+            this.emailAddress,
+            addresses.stream().map(AddressEntity::toReadModel).toList()
+    );
   }
 
   public UUID getId() {

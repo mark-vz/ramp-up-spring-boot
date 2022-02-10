@@ -47,7 +47,7 @@ record CreateAddressDto(
     String zipcode,
 
     @NotNull
-    @Size(min = 1, message = "city must be at least 3 characters long")
+    @Size(min = 3, message = "city must be at least 3 characters long")
     String city,
 
     @NotNull

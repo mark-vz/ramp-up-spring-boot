@@ -20,7 +20,7 @@ public class AddressConverter implements Converter<Address, AddressEntity> {
 
     public AddressConverter(UserRepository userRepository, ObjectMapper objectMapper) {
         this.userRepository = userRepository;
-        this.objectMapper = objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true);;
+        this.objectMapper = objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true);
     }
 
     @Override
