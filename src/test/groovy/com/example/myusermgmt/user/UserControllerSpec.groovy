@@ -27,8 +27,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(controllers = UserController.class)
 class UserControllerSpec extends Specification {
 
-    final User user1 = UserFixture.createUser("Mark", "Foo", "mark@...")
-    final User user2 = UserFixture.createUser("Jan", "Bar", "jan@...")
+    final User testUser1 = UserFixture.createUser("Mark", "Foo", "mark@...")
+    final User testUser2 = UserFixture.createUser("Jan", "Bar", "jan@...")
 
     final AddressView testAddressView1 = new AddressView("str1", "50354", "Hürth")
     final AddressView testAddressView2 = new AddressView("str2", "50123", "Brühl")
@@ -47,7 +47,7 @@ class UserControllerSpec extends Specification {
         ResultActions resultActions = mockMvc.perform(get("/api/users"))
 
         then:
-        1 * userServiceMock.getAllUsers() >> [user1, user2]
+        1 * userServiceMock.getAllUsers() >> [testUser1, testUser2]
         resultActions
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -73,11 +73,11 @@ class UserControllerSpec extends Specification {
                 .content('{"firstName": "Jan", "lastName":  "Bar", "emailAddress":  "jan@..."}'))
 
         then:
-        1 * userServiceMock.createUser(_) >> user2
+        1 * userServiceMock.createUser(_) >> testUser2
         resultActions
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json('{"id": "' + user2.id() + '" ,"firstName": "Jan", "lastName":  "Bar", "emailAddress":  "jan@..."}'))
+                .andExpect(content().json('{"id": "' + testUser2.id() + '" ,"firstName": "Jan", "lastName":  "Bar", "emailAddress":  "jan@..."}'))
     }
 
     def "should throw validation error during user creation if names or email address are too short"() {
