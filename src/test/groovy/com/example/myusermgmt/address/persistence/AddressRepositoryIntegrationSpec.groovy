@@ -8,7 +8,7 @@ import com.example.myusermgmt.user.domain.User
 import com.example.myusermgmt.user.persistence.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 
-class AddressRepositorySpec extends IntegrationSpecification {
+class AddressRepositoryIntegrationSpec extends IntegrationSpecification {
 
     final User user1 = UserFixture.createUser("Bob", "Andrews", "bob.andrews@example.com")
     final Address address1 = AddressFixture.createAddressWithUser(user1)

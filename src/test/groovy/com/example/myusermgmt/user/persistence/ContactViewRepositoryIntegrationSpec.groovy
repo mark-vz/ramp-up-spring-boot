@@ -14,7 +14,7 @@ import org.springframework.test.context.transaction.TestTransaction
 
 import javax.transaction.Transactional
 
-class ContactViewRepositorySpec extends IntegrationSpecification {
+class ContactViewRepositoryIntegrationSpec extends IntegrationSpecification {
 
     final User user1 = UserFixture.createUser("Mark", "Snyder", "m.snyder@example.com")
     final Address address1 = AddressFixture.createAddressWithUser(user1)

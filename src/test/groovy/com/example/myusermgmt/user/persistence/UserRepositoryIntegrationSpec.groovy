@@ -5,7 +5,7 @@ import com.example.myusermgmt.fixtures.UserFixture
 import com.example.myusermgmt.user.domain.User
 import org.springframework.beans.factory.annotation.Autowired
 
-class UserRepositorySpec extends IntegrationSpecification {
+class UserRepositoryIntegrationSpec extends IntegrationSpecification {
 
     final User user1 = UserFixture.createUser("John Maria", "Doe-Smith", "doe-smith@example.com")
     final User user2 = UserFixture.createUser("Peter Maria", "Parker-Bowl", "parker-bowl@example.com")
