@@ -12,8 +12,8 @@ import spock.lang.Specification
 
 class UserServiceSpec extends Specification {
 
-    final User user1 = UserFixture.createUser("Mark", "Foo", "mark@...")
-    final User user2 = UserFixture.createUser("Jan", "Bar", "jan@...")
+    final User testUser1 = UserFixture.createUser("Mark", "Foo", "mark@...")
+    final User testUser2 = UserFixture.createUser("Jan", "Bar", "jan@...")
 
     final AddressView testAddressView1 = new AddressView("str1", "50354", "Hürth")
     final AddressView testAddressView2 = new AddressView("str2", "50123", "Brühl")
@@ -21,7 +21,7 @@ class UserServiceSpec extends Specification {
     final ContactView testContactView1 = ContactViewFixture.createContactView("Mark", "Foo", "mark@...", [testAddressView1, testAddressView2])
     final ContactView testContactView2 = ContactViewFixture.createContactView("Jan", "Bar", "jan@...", [testAddressView1])
 
-    final List<User> testUsers = [user1, user2]
+    final List<User> testUsers = [testUser1, testUser2]
     final List<ContactView> testContactViews = [testContactView1, testContactView2]
 
     @SpringBean
@@ -52,10 +52,10 @@ class UserServiceSpec extends Specification {
 
     def "should create a new user"() {
         when:
-        User createdUser = sut.createUser(user1)
+        User createdUser = sut.createUser(testUser1)
 
         then:
-        1 * userRepositoryMock.createUser(user1) >> user1
-        createdUser == user1
+        1 * userRepositoryMock.createUser(testUser1) >> testUser1
+        createdUser == testUser1
     }
 }

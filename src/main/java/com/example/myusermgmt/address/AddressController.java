@@ -5,6 +5,7 @@ import com.example.myusermgmt.address.writemodel.AddressWithUserEmail;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
+import java.util.UUID;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -58,6 +59,6 @@ record CreateAddressDto(
     String city
 ) {
   AddressWithUserEmail toWriteModel() {
-    return new AddressWithUserEmail(email, street, zipcode, city);
+    return new AddressWithUserEmail(UUID.randomUUID(), email, street, zipcode, city);
   }
 }

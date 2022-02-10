@@ -6,7 +6,6 @@ import com.example.myusermgmt.address.writemodel.AddressWithUserEmail;
 import com.example.myusermgmt.user.UserService;
 import com.example.myusermgmt.user.domain.User;
 import java.util.List;
-import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,9 +23,9 @@ public class AddressService {
     return addressRepository.getAllAddresses();
   }
 
-  public Address createAddress(final AddressWithUserEmail addressWithUserEmail) {
-    final User user = userService.getUserByEmailAddress(addressWithUserEmail.userEmailAddress());
-    final Address address = new Address(UUID.randomUUID(), addressWithUserEmail.street(), addressWithUserEmail.zipcode(), addressWithUserEmail.city(), user);
+  public Address createAddress(final AddressWithUserEmail addressWithEmail) {
+    final User user = userService.getUserByEmailAddress(addressWithEmail.userEmailAddress());
+    final Address address = new Address(addressWithEmail.id(), addressWithEmail.street(), addressWithEmail.zipcode(), addressWithEmail.city(), user);
     return addressRepository.createAddress(address);
   }
 }
