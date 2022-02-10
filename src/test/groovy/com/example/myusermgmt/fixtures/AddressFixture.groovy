@@ -23,4 +23,8 @@ class AddressFixture {
     ) {
         return createAddressWithId(UUID.randomUUID(), street, zipcode, city, user)
     }
+
+    static Address createAddressWithUser(final User user = UserFixture.createUser()) {
+        return createAddress("street 1", "50354", "Hürth", user)
+    }
 }
