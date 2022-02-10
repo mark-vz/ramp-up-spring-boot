@@ -23,6 +23,7 @@ class AddressRepositorySpec extends IntegrationSpecification {
         when:
         User createdUser = userRepository.createUser(user1)
         Address createdAddress = addressRepository.createAddress(address1)
+
         then:
         List<Address> addresses = addressRepository.getAllAddresses()
         addresses.size() == 1

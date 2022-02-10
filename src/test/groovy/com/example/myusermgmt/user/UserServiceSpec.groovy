@@ -44,6 +44,7 @@ class UserServiceSpec extends Specification {
     def "should get user by email address"() {
         given:
         def emailAddress = "foo@example.com"
+
         when:
         User user = sut.getUserByEmailAddress(emailAddress)
 
