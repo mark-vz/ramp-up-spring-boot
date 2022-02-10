@@ -1,5 +1,6 @@
 package com.example.myusermgmt.address
 
+import com.example.myusermgmt.address.converter.AddressConverter
 import com.example.myusermgmt.address.domain.Address
 import com.example.myusermgmt.fixtures.AddressFixture
 import com.example.myusermgmt.user.CreateUserDto
@@ -8,6 +9,7 @@ import com.example.myusermgmt.user.domain.User
 import org.spockframework.spring.SpringBean
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
+import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.ResultActions
@@ -27,14 +29,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(controllers = AddressController.class)
 class AddressControllerSpec extends Specification {
 
-    final Address address1 = AddressFixture.createAddress("Teststrasse", "12345", "Hamburg", "b659ebb1-d794-459d-9a96-d6d5627a41a7")
-    final Address address2 = AddressFixture.createAddress("Allee 1", "12341", "Kiel", "b659ebb1-d794-459d-9a96-d6d5627a41a1")
+    final UUID sampleUUID = UUID.fromString("b659ebb1-d794-459d-9a96-d6d5627a41a7")
+    final Address address1 = AddressFixture.createAddressWithId(sampleUUID, "Teststrasse", "12345", "Hamburg", "b659ebb1-d794-459d-9a96-d6d5627a41a7")
+    final Address address2 = AddressFixture.createAddressWithId(sampleUUID, "Allee 1", "12341", "Kiel", "b659ebb1-d794-459d-9a96-d6d5627a41a1")
 
     @Autowired
     MockMvc mockMvc
 
     @SpringBean
     final AddressService addressService = Mock()
+
+    @SpringBean
+    final AddressConverter addressConverter = Mock()
 
     def "should get addresses"() {
         when:
@@ -46,8 +52,8 @@ class AddressControllerSpec extends Specification {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(
-                        '[{"street": "Teststrasse", "zipcode":  "12345", "city": "Hamburg", "user": "b659ebb1-d794-459d-9a96-d6d5627a41a1" }, ' +
-                        '{"street": "Allee 1", "zipcode":  "12341", "city":  "Kiel", "user": "b659ebb1-d794-459d-9a96-d6d5627a41a7"}]'
+                        '[{"id": "b659ebb1-d794-459d-9a96-d6d5627a41a7", "street": "Teststrasse", "zipcode":  "12345", "city": "Hamburg", "user": "b659ebb1-d794-459d-9a96-d6d5627a41a7" }, ' +
+                        '{"id": "b659ebb1-d794-459d-9a96-d6d5627a41a7", "street": "Allee 1", "zipcode":  "12341", "city": "Kiel", "user": "b659ebb1-d794-459d-9a96-d6d5627a41a1"}]'
                 ))
     }
 
@@ -86,7 +92,7 @@ class AddressControllerSpec extends Specification {
         street | zipcode | city      | user                                     || expectedErrorMessages
         ''     | '1'     | 'Hamburg' | 'b659ebb1-d794-459d-9a96-d6d5627a41a7'   || ['street must not be blank']
         '1'    | ''      | 'Hamburg' | 'b659ebb1-d794-459d-9a96-d6d5627a41a7'   || ['zipcode must not be blank']
-        '1'    | '1'     | '' | 'b659ebb1-d794-459d-9a96-d6d5627a41a7'          || ['city must be 3 characters long']
+        '1'    | '1'     | ''        | 'b659ebb1-d794-459d-9a96-d6d5627a41a7'          || ['city must be 3 characters long']
         ''     | ''      | 'Hamburg' | 'b659ebb1-d794-459d-9a96-d6d5627a41a7'   || ['street must not be blank', 'city must not be blank']
     }
 

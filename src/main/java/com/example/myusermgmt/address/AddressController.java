@@ -16,44 +16,51 @@ import java.util.UUID;
 @RequestMapping(path = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AddressController {
 
-  private final AddressService addressService;
+    private final AddressService addressService;
 
-  public AddressController(AddressService addressService) {
-    this.addressService = addressService;
-  }
+    public AddressController(AddressService addressService) {
+        this.addressService = addressService;
+    }
 
-  @GetMapping(path = "/addresses")
-  @Operation(description = "Gets all addresses", summary = "Gets all addresses")
-  @Tag(name = "public api")
-  public List<Address> getAddresses() {
-    return addressService.getAllAddresses();
-  }
+    @GetMapping(path = "/addresses")
+    @Operation(description = "Gets all addresses", summary = "Gets all addresses")
+    @Tag(name = "public api")
+    public List<Address> getAddresses() {
+        return addressService.getAllAddresses();
+    }
 
-  @PostMapping(path = "/addresses", consumes = MediaType.APPLICATION_JSON_VALUE)
-  @Operation(description = "Creates a new address", summary = "Creates a new address")
-  @Tag(name = "public api")
-  public Address createAddress(@Valid @RequestBody final CreateAddressDto addressDto) {
-    return addressService.createAddress(addressDto.toDomain());
-  }
+    @PostMapping(path = "/addresses", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(description = "Creates a new address", summary = "Creates a new address")
+    @Tag(name = "public api")
+    public Address createAddress(@Valid @RequestBody final CreateAddressDto addressDto) {
+        return addressService.createAddress(addressDto.toDomain());
+    }
+
+    @GetMapping(path = "/addresses/{addressId}")
+    @Operation(description = "Gets specific address", summary = "Gets specific address")
+    @Tag(name = "public api")
+    public Address getAddress(@PathVariable final String addressId) {
+        return addressService.getAddress(addressId);
+    }
 }
 
 record CreateAddressDto(
-    @NotNull
-    @Size(min = 1, message = "street must not be blank")
-    String street,
+        @NotNull
+        @Size(min = 1, message = "street must not be blank")
+        String street,
 
-    @NotNull
-    @Size(min = 5, max = 5, message = "zipcode must have exactly 5 characters long")
-    String zipcode,
+        @NotNull
+        @Size(min = 5, max = 5, message = "zipcode must have exactly 5 characters long")
+        String zipcode,
 
-    @NotNull
-    @Size(min = 3, message = "city must be at least 3 characters long")
-    String city,
+        @NotNull
+        @Size(min = 3, message = "city must be at least 3 characters long")
+        String city,
 
-    @NotNull
-    String user) {
+        @NotNull
+        String user) {
 
-      Address toDomain() {
+    Address toDomain() {
         return new Address(UUID.randomUUID(), street, zipcode, city, user);
-      }
+    }
 }

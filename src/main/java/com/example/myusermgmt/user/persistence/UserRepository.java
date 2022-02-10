@@ -27,7 +27,6 @@ public interface UserRepository extends JpaRepository<UserEntity, UUID> {
   }
 
   @Transactional
-  @Query("Select u from UserEntity u join u.addresses")
   default List<Contact> getAllContacts() {
     return findAll().stream().map(UserEntity::toContactDomain).toList();
   }
