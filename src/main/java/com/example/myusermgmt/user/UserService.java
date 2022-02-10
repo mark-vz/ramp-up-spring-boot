@@ -3,6 +3,8 @@ package com.example.myusermgmt.user;
 import com.example.myusermgmt.user.domain.User;
 import com.example.myusermgmt.user.persistence.UserRepository;
 import java.util.List;
+
+import com.example.myusermgmt.user.readModel.Contact;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,5 +22,13 @@ public class UserService {
 
   public User createUser(final User user) {
     return userRepository.createUser(user);
+  }
+
+  public User getUser(final String userId) {
+    return userRepository.getUser(userId);
+  }
+
+  public List<Contact> getAllContacts() {
+    return userRepository.getAllContacts();
   }
 }
