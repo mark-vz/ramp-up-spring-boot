@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired
 
 class AddressRepositorySpec extends IntegrationSpecification {
 
-    final User user1 = UserFixture.createUser()
+    final User user1 = UserFixture.createUser("Bob", "Andrews", "bob.andrews@example.com")
     final Address address1 = AddressFixture.createAddressWithUser(user1)
 
     @Autowired
@@ -31,5 +31,7 @@ class AddressRepositorySpec extends IntegrationSpecification {
         addresses == [createdAddress]
         and:
         addresses.first().user() == createdUser
+        createdUser.firstName() == "Bob"
+        createdUser.lastName() == "Andrews"
     }
 }

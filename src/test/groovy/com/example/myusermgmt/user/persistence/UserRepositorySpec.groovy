@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired
 
 class UserRepositorySpec extends IntegrationSpecification {
 
-    final User user1 = UserFixture.createUser("John", "Doe", "doe@example.com")
-    final User user2 = UserFixture.createUser("Peter", "Parker", "parker@example.com")
+    final User user1 = UserFixture.createUser("John Maria", "Doe-Smith", "doe-smith@example.com")
+    final User user2 = UserFixture.createUser("Peter Maria", "Parker-Bowl", "parker-bowl@example.com")
 
     @Autowired
     UserRepository userRepository
@@ -30,13 +30,13 @@ class UserRepositorySpec extends IntegrationSpecification {
         userRepository.createUser(user2)
 
         then:
-        User userJohn = userRepository.getUserByEmailAddress("doe@example.com")
-        User userPeter = userRepository.getUserByEmailAddress("parker@example.com")
+        User userJohn = userRepository.getUserByEmailAddress("doe-smith@example.com")
+        User userPeter = userRepository.getUserByEmailAddress("parker-bowl@example.com")
         and:
-        userJohn.lastName() == "Doe"
-        userJohn.emailAddress() == "doe@example.com"
-        userPeter.lastName() == "Parker"
-        userPeter.emailAddress() == "parker@example.com"
+        userJohn.lastName() == "Doe-Smith"
+        userJohn.emailAddress() == "doe-smith@example.com"
+        userPeter.lastName() == "Parker-Bowl"
+        userPeter.emailAddress() == "parker-bowl@example.com"
     }
 
     def "should return null if no user for given email address exists"() {
