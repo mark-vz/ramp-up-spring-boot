@@ -73,6 +73,8 @@ Wir schreiben unsere Unit- und Integrationstests mithilfe des _Spock_ Frameworks
 
 Während Unit-Tests einzelne, gekapselte Funktionalitäten testen und alle äußeren Abhängigkeiten "gemocked" werden, benötigen Integrationstests die komplette Spring Umgebung, ggf. eine Datenbank, weitere Services, etc., um getestet werden zu können. Mittels _Testcontainers_ lässt sich eine vollständige Umgebung mit z.B. einem Datenbanksystem modular als Docker-Container hochfahren gegen die dann getestet wird. Die Testumgebung wird im Test-Code programmatisch konfiguriert.
 
+REST-Endpunkte können in einem Integrationstest komfortabel mit _REST Assured_ getestet werden.
+
 Mehr unter:
 
 - <https://spockframework.org/>
@@ -81,6 +83,8 @@ Mehr unter:
 - <https://www.testcontainers.org/>
 - <https://www.baeldung.com/docker-test-containers>
 - <https://www.baeldung.com/spring-boot-testcontainers-integration-test>
+- <https://rest-assured.io/>
+- <https://www.baeldung.com/rest-assured-response>
 
 ### Test coverage
 
@@ -191,6 +195,35 @@ Mehr unter:
 - <https://jwt.io/>
 - <https://www.baeldung.com/spring-security-oauth>
 - <https://www.baeldung.com/spring-security-oauth-auth-server>
+
+### Resilience
+
+#### Bulkhead
+
+Micro-Services sollten das _Bulkhead_ Pattern implementieren. Damit wird verhindert, dass ein Fehler bei der Bearbeitung eines einzelnen eingehenden Requests Auswirkungen auf die Bearbeitung anderer eingehender Requests hat. Ein Bulkhead schützt den eigenen Service und verrichtet seine Arbeit während des Empfangs von Daten (Empfang von Requests von anderen Services).
+
+Mehr unter:
+
+- <https://resilience4j.readme.io/docs/bulkhead>
+- <https://www.vinsguru.com/bulkhead-pattern/>
+
+#### Circuit Breaker
+
+Micro-Services sollten das _Circuit Breaker_ Pattern implementieren. Damit wird sichergestellt, dass keine Requests mehr an andere Services gestellt werden, die akut mit der Bearbeitung dieser Requests überfordert sind. Ein Circuit Breaker schützt andere Services und verrichtet seine Arbeit während des Sendens von Daten (Abschicken von Requests an andere Services).
+
+Mehr unter:
+
+- <https://resilience4j.readme.io/docs/circuitbreaker>
+- <https://www.vinsguru.com/circuit-breaker-pattern/>
+
+#### Rate Limiter
+
+Micro-Services sollten das _Rate Limiter_ Pattern implementieren. Damit wird sichergestellt, dass die eigenen Endpunkte nicht zu oft pro Zeiteinheit angefragt werden. Die Limitierung der eingehenden Requests pro konfigurierbaren Zeitintervall schützt den eigenen Service vor Überlastung. Der Rate Limiter verrichtet seine Arbeit während des Empfangs von Daten (Empfang von Requests von anderen Services).
+
+Mehr unter:
+
+- <https://resilience4j.readme.io/docs/ratelimiter>
+- <https://www.vinsguru.com/rate-limiter-pattern/>
 
 ### Actuator / Prometheus / Grafana
 

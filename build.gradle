@@ -76,6 +76,9 @@ dependencies {
     testImplementation 'org.testcontainers:postgresql'
     testImplementation(enforcedPlatform("org.testcontainers:testcontainers-bom:${testcontainersVersion}"))
     testImplementation("org.testcontainers:junit-jupiter")
+
+    // REST-assured
+    testImplementation("io.rest-assured:rest-assured")
 }
 
 // ******

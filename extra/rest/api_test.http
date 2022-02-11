@@ -1,0 +1,15 @@
+// Get all users
+POST http://localhost:8080/api/addresses
+Content-Type: application/json
+
+{"street": "street 1", "zipcode": "50354", "city": "Hürth", "email": "finn@example.com"}
+
+###
+
+// Create a new user
+POST http://localhost:8080/api/users
+Content-Type: application/json
+
+{"firstName": "Mark", "lastName": "Smith", "emailAddress": "mark@example.com"}
+
+###

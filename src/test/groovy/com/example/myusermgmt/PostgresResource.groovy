@@ -27,7 +27,7 @@ class PostgresResource implements ApplicationContextInitializer<ConfigurableAppl
     void initialize(ConfigurableApplicationContext applicationContext) {
         db.setNetworkMode("bridge")
         db.start()
-        logger.infov("*** Test DB: {0} - u: {1} - p: {2}", db.getJdbcUrl(), db.getUsername(), db.getPassword())
+        logger.infov("**** Test DB: {0}, user: {1} / pass: {2}", db.getJdbcUrl(), db.getUsername(), db.getPassword())
         TestPropertyValues.of(
                 "spring.datasource.url=" + db.getJdbcUrl(),
                 "spring.datasource.username=" + db.getUsername(),

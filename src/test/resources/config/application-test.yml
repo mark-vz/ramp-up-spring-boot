@@ -3,7 +3,7 @@ logging:
   config:
   level:
     root: INFO
-    com.rewe.digital.contentofferdetails: DEBUG
+    com.example.myusermgmt: DEBUG
 
 spring:
   jpa:
