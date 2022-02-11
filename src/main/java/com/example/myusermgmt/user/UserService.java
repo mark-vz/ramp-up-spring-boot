@@ -1,5 +1,6 @@
 package com.example.myusermgmt.user;
 
+import com.example.myusermgmt.common.cache.CacheConfig;
 import com.example.myusermgmt.common.exception.UserNotFoundForEmailAddressException;
 import com.example.myusermgmt.user.domain.User;
 import com.example.myusermgmt.user.persistence.ContactViewRepository;
@@ -9,6 +10,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,6 +26,7 @@ public class UserService {
     this.contactViewRepository = contactViewRepository;
   }
 
+  @Cacheable(CacheConfig.USERS_CACHE)
   public List<User> getAllUsers() {
     return userRepository.getAllUsers();
   }

@@ -24,6 +24,7 @@ dependencyManagement {
         dependency 'org.springdoc:springdoc-openapi-ui:1.6.5'
         dependency 'io.swagger.core.v3:swagger-annotations:2.1.12'
         dependency 'org.liquibase:liquibase-core:4.7.1'
+        dependency 'com.github.ben-manes.caffeine:caffeine:3.0.5'
 
         // ----- Testing -----
 
@@ -52,6 +53,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     runtimeOnly 'org.postgresql:postgresql'
     implementation 'org.liquibase:liquibase-core'
+
+    // Caching
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation 'com.github.ben-manes.caffeine:caffeine'
 
     // OpenAPI + Swagger UI
     implementation 'org.springdoc:springdoc-openapi-ui'

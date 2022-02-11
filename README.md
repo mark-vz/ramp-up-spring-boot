@@ -225,6 +225,16 @@ Mehr unter:
 - <https://resilience4j.readme.io/docs/ratelimiter>
 - <https://www.vinsguru.com/rate-limiter-pattern/>
 
+### Caching
+
+_Caffeine_ todo ...
+
+Mehr unter:
+
+- <https://github.com/ben-manes/caffeine>
+- <https://www.baeldung.com/java-caching-caffeine>
+- <https://www.baeldung.com/spring-boot-caffeine-cache>
+
 ### Actuator / Prometheus / Grafana
 
 Mithilfe der "actuator" Dependency wird eine Spring Boot Anwendung um sogenannte _Actuator_ Endpunkte "angereichert". Sie ermöglichen u.a. die Überwachung der Anwendung. Spring Boot enthält eine Reihe integrierter Endpunkte und erlaubt, eigene hinzuzufügen. So liefert z.B. der "Health" Endpunkt grundlegende Informationen zum Zustand der Anwendung.
