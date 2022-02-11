@@ -1,6 +1,7 @@
 package com.example.myusermgmt.address
 
 import com.example.myusermgmt.address.domain.Address
+import com.example.myusermgmt.common.exception.UserNotFoundForEmailAddressException
 import com.example.myusermgmt.fixtures.AddressFixture
 import org.spockframework.spring.SpringBean
 import org.springframework.beans.factory.annotation.Autowired
@@ -67,7 +68,7 @@ class AddressControllerSpec extends Specification {
 
         then:
         1 * addressServiceMock.createAddress(_) >> {
-            throw new IllegalArgumentException("user not found for given email address");
+            throw new UserNotFoundForEmailAddressException()
         }
         MvcResult result = resultActions
                 .andExpect(status().isNotFound())

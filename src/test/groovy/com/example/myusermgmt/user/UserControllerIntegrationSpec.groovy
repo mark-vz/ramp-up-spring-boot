@@ -5,6 +5,7 @@ import groovy.json.JsonSlurper
 import io.restassured.http.ContentType
 import io.restassured.response.Response
 import org.springframework.test.context.jdbc.Sql
+import spock.lang.Ignore
 import spock.lang.Stepwise
 
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD
@@ -65,5 +66,34 @@ class UserControllerIntegrationSpec extends IntegrationSpecification {
         json[0]['firstName'] == 'Mark'
         json[1]['firstName'] == 'Bob'
         json[2]['firstName'] == 'Tommy'
+    }
+
+    @Ignore
+    def "should not create user if email address already exists"() {
+        when:
+        Response response1 = given()
+                .body('{"firstName": "Mark", "lastName": "Smith", "emailAddress": "m.smith@example.com"}')
+                .when()
+                .post("/api/users")
+
+        then:
+        response1
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+
+        when: 'trying to create same user again'
+        Response response2 = given()
+                .body('{"firstName": "Mark", "lastName": "Smith", "emailAddress": "m.smith@example.com"}')
+                .when()
+                .post("/api/users")
+
+        then: 'an error should be returned'
+        response2
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
     }
 }

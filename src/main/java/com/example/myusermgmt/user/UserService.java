@@ -1,5 +1,6 @@
 package com.example.myusermgmt.user;
 
+import com.example.myusermgmt.common.exception.UserNotFoundForEmailAddressException;
 import com.example.myusermgmt.user.domain.User;
 import com.example.myusermgmt.user.persistence.ContactViewRepository;
 import com.example.myusermgmt.user.persistence.UserRepository;
@@ -31,7 +32,7 @@ public class UserService {
     final User user = userRepository.getUserByEmailAddress(emailAddress);
     if (user == null) {
       logger.error("user not found for given email address");
-      throw new IllegalArgumentException("user not found for given email address");
+      throw new UserNotFoundForEmailAddressException();
     }
     return user;
   }

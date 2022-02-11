@@ -3,6 +3,7 @@ package com.example.myusermgmt.address
 import com.example.myusermgmt.address.domain.Address
 import com.example.myusermgmt.address.persistence.AddressRepository
 import com.example.myusermgmt.address.writemodel.AddressWithUserEmail
+import com.example.myusermgmt.common.exception.UserNotFoundForEmailAddressException
 import com.example.myusermgmt.fixtures.AddressFixture
 import com.example.myusermgmt.fixtures.UserFixture
 import com.example.myusermgmt.user.UserService
@@ -54,10 +55,10 @@ class AddressServiceSpec extends Specification {
 
         then:
         1 * userServiceMock.getUserByEmailAddress(testAddressWithUserEmail.userEmailAddress()) >> {
-            throw new IllegalArgumentException("user not found for given email address")
+            throw new UserNotFoundForEmailAddressException()
         }
         0 * addressRepositoryMock.createAddress(_)
-        IllegalArgumentException ex = thrown()
+        UserNotFoundForEmailAddressException ex = thrown()
         ex.message == "user not found for given email address"
     }
 }

@@ -2,6 +2,7 @@ package com.example.myusermgmt.address;
 
 import com.example.myusermgmt.address.domain.Address;
 import com.example.myusermgmt.address.writemodel.AddressWithUserEmail;
+import com.example.myusermgmt.common.exception.UserNotFoundForEmailAddressException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
@@ -41,7 +42,7 @@ public class AddressController {
   public Address createAddress(@Valid @RequestBody final CreateAddressDto addressDto) {
     try {
       return addressService.createAddress(addressDto.toWriteModel());
-    } catch (IllegalArgumentException ex) {
+    } catch (UserNotFoundForEmailAddressException ex) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user found for email address " + addressDto.email());
     }
   }

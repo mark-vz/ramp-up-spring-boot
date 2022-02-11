@@ -1,6 +1,7 @@
 package com.example.myusermgmt.user
 
 import com.example.myusermgmt.address.readmodel.AddressView
+import com.example.myusermgmt.common.exception.UserNotFoundForEmailAddressException
 import com.example.myusermgmt.fixtures.ContactViewFixture
 import com.example.myusermgmt.fixtures.UserFixture
 import com.example.myusermgmt.user.domain.User
@@ -62,7 +63,7 @@ class UserServiceSpec extends Specification {
 
         then:
         1 * userRepositoryMock.getUserByEmailAddress(emailAddress) >> null
-        IllegalArgumentException ex = thrown()
+        UserNotFoundForEmailAddressException ex = thrown()
         ex.message == "user not found for given email address"
     }
 
