@@ -196,6 +196,35 @@ Mehr unter:
 - <https://www.baeldung.com/spring-security-oauth>
 - <https://www.baeldung.com/spring-security-oauth-auth-server>
 
+### Resilience
+
+#### Bulkhead
+
+Micro-Services sollten das _Bulkhead_ Pattern implementieren. Damit wird verhindert, dass ein Fehler bei der Bearbeitung eines einzelnen eingehenden Requests Auswirkungen auf die Bearbeitung anderer eingehender Requests hat. Ein Bulkhead schützt den eigenen Service und verrichtet seine Arbeit während des Empfangs von Daten (Empfang von Requests von anderen Services).
+
+Mehr unter:
+
+- <https://resilience4j.readme.io/docs/bulkhead>
+- <https://www.vinsguru.com/bulkhead-pattern/>
+
+#### Circuit Breaker
+
+Micro-Services sollten das _Circuit Breaker_ Pattern implementieren. Damit wird sichergestellt, dass keine Requests mehr an andere Services gestellt werden, die akut mit der Bearbeitung dieser Requests überfordert sind. Ein Circuit Breaker schützt andere Services und verrichtet seine Arbeit während des Sendens von Daten (Abschicken von Requests an andere Services).
+
+Mehr unter:
+
+- <https://resilience4j.readme.io/docs/circuitbreaker>
+- <https://www.vinsguru.com/circuit-breaker-pattern/>
+
+#### Rate Limiter
+
+Micro-Services sollten das _Rate Limiter_ Pattern implementieren. Damit wird sichergestellt, dass die eigenen Endpunkte nicht zu oft pro Zeiteinheit angefragt werden. Die Limitierung der eingehenden Requests pro konfigurierbaren Zeitintervall schützt den eigenen Service vor Überlastung. Der Rate Limiter verrichtet seine Arbeit während des Empfangs von Daten (Empfang von Requests von anderen Services).
+
+Mehr unter:
+
+- <https://resilience4j.readme.io/docs/ratelimiter>
+- <https://www.vinsguru.com/rate-limiter-pattern/>
+
 ### Actuator / Prometheus / Grafana
 
 Mithilfe der "actuator" Dependency wird eine Spring Boot Anwendung um sogenannte _Actuator_ Endpunkte "angereichert". Sie ermöglichen u.a. die Überwachung der Anwendung. Spring Boot enthält eine Reihe integrierter Endpunkte und erlaubt, eigene hinzuzufügen. So liefert z.B. der "Health" Endpunkt grundlegende Informationen zum Zustand der Anwendung.
