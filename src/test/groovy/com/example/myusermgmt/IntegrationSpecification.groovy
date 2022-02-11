@@ -1,6 +1,10 @@
 package com.example.myusermgmt
 
+import io.restassured.RestAssured
+import io.restassured.http.ContentType
+import io.restassured.specification.RequestSpecification
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.context.annotation.Profile
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
@@ -23,4 +27,13 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TE
         "DELETE FROM users",
 ])
 class IntegrationSpecification extends Specification {
+
+    @LocalServerPort
+    protected Integer port
+
+    protected RequestSpecification given() {
+        return RestAssured.given()
+                .port(port)
+                .contentType(ContentType.JSON)
+    }
 }
