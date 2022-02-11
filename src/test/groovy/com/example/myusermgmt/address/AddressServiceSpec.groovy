@@ -51,7 +51,7 @@ class AddressServiceSpec extends Specification {
 
     def "createAddress: should throw exception if no user for given email address exists"() {
         when:
-        Address createdAddress = sut.createAddress(testAddressWithUserEmail)
+        sut.createAddress(testAddressWithUserEmail)
 
         then:
         1 * userServiceMock.getUserByEmailAddress(testAddressWithUserEmail.userEmailAddress()) >> {

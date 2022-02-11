@@ -9,12 +9,14 @@ import java.util.UUID;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping(path = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -44,7 +46,11 @@ public class UserController {
   @Operation(description = "Creates a new user", summary = "Creates a new user")
   @Tag(name = "public api")
   public User createUser(@Valid @RequestBody final CreateUserDto userDto) {
-    return userService.createUser(userDto.toDomain());
+    try {
+      return userService.createUser(userDto.toDomain());
+    } catch (Exception ex) {
+      throw new ResponseStatusException(HttpStatus.CONFLICT, "User with that email address already exists");
+    }
   }
 }
 

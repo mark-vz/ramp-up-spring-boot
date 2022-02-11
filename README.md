@@ -73,6 +73,8 @@ Wir schreiben unsere Unit- und Integrationstests mithilfe des _Spock_ Frameworks
 
 Während Unit-Tests einzelne, gekapselte Funktionalitäten testen und alle äußeren Abhängigkeiten "gemocked" werden, benötigen Integrationstests die komplette Spring Umgebung, ggf. eine Datenbank, weitere Services, etc., um getestet werden zu können. Mittels _Testcontainers_ lässt sich eine vollständige Umgebung mit z.B. einem Datenbanksystem modular als Docker-Container hochfahren gegen die dann getestet wird. Die Testumgebung wird im Test-Code programmatisch konfiguriert.
 
+REST-Endpunkte können in einem Integrationstest komfortabel mit _REST Assured_ getestet werden.
+
 Mehr unter:
 
 - <https://spockframework.org/>
@@ -81,6 +83,8 @@ Mehr unter:
 - <https://www.testcontainers.org/>
 - <https://www.baeldung.com/docker-test-containers>
 - <https://www.baeldung.com/spring-boot-testcontainers-integration-test>
+- <https://rest-assured.io/>
+- <https://www.baeldung.com/rest-assured-response>
 
 ### Test coverage
 

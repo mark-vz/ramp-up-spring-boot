@@ -75,7 +75,7 @@ class AddressControllerSpec extends Specification {
                 .andReturn()
         and:
         result.response.getStatus() == 404
-        result.response.getErrorMessage() == "No user found for email address does-not-exist@example.com"
+        result.response.getErrorMessage() == "No user found for email address"
     }
 
     def "should create and validate DTO correctly"() {

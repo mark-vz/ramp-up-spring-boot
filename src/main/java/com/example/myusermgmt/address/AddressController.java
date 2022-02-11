@@ -43,7 +43,7 @@ public class AddressController {
     try {
       return addressService.createAddress(addressDto.toWriteModel());
     } catch (UserNotFoundForEmailAddressException ex) {
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user found for email address " + addressDto.email());
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user found for email address");
     }
   }
 }
