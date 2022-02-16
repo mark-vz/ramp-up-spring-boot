@@ -1,4 +1,4 @@
-package com.example.myusermgmt.common.cache;
+package com.example.myusermgmt.config;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import java.util.concurrent.TimeUnit;

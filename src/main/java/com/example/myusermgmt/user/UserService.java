@@ -1,6 +1,6 @@
 package com.example.myusermgmt.user;
 
-import com.example.myusermgmt.common.cache.CacheConfig;
+import com.example.myusermgmt.config.CacheConfig;
 import com.example.myusermgmt.common.exception.UserNotFoundForEmailAddressException;
 import com.example.myusermgmt.user.domain.User;
 import com.example.myusermgmt.user.persistence.ContactViewRepository;
