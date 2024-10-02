@@ -4,6 +4,7 @@ plugins {
     id 'java'
     id 'groovy'
     id 'jacoco'
+    id 'com.google.cloud.tools.jib' version '3.2.0'
 }
 
 group = 'com.example'
@@ -116,3 +117,50 @@ jacocoTestReport {
 test {
     finalizedBy jacocoTestReport // report is always generated after tests run
 }
+
+// ******
+// jib - see also: https://github.com/GoogleContainerTools/jib and https://plugins.gradle.org/plugin/com.google.cloud.tools.jib
+// ******
+
+jib {
+    from {
+        image = "${project.property('dockerRegistry')}/eclipse-temurin:17-jre-focal"
+    }
+    to {
+        image = "$buildDir/${rootProject.name}"
+        tags = ["${project.version}"/*, System.getProperty('docker.image.tag')*/]
+    }
+    extraDirectories {
+        paths = file("$buildDir")
+    }
+    container {
+        environment = [
+                "JAVA_DISABLE_JMX"            : "true",
+                "JAVA_META_SIZE_TO_HEAP_QUOTA": "30",
+                "SYSTEM_MEMORY"               : "512",
+                "SERVER_PORT"                 : "8080",
+                "SERVICE_CLASSPATH"           : "/app/libs/*:/app/resources/:/app/classes/",
+                "SPRING_CONFIG_LOCATION"      : "classpath:/config/",
+                "SERVICE_MAIN_CLASS"          : project.getProperty('mainClassName')
+        ]
+        creationTime = 'USE_CURRENT_TIMESTAMP'
+        entrypoint = ['INHERIT']
+        // labels are now final and therefore cannot be set with the property access syntax
+        labels.putAll(
+                'maintainer': 'Mark Vz'
+        )
+        user = 'service'
+    }
+}
+
+tasks.jib {
+    doFirst {
+        sourceSets['main'].runtimeClasspath = sourceSets['main'].runtimeClasspath.filter {
+            !it.name.contains('spring-boot-devtools')
+        }
+    }
+}
+
+tasks.jib.dependsOn build
+tasks.jibBuildTar.dependsOn build
+tasks.jibDockerBuild.dependsOn build

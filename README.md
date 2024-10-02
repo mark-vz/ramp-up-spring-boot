@@ -122,6 +122,22 @@ Mehr unter:
 - <https://swagger.io/specification/>
 - <https://www.baeldung.com/spring-rest-openapi-documentation>
 
+### WebClient
+
+todo ...
+
+Mehr unter:
+
+- <https://www.baeldung.com/spring-mocking-webclient
+
+### Correlation Id
+
+todo ...
+
+### Wiremock
+
+todo ...
+
 ### Controller, Service, Repository
 
 In Spring Boot stellt ein sogenannter _Controller_ (z.B. `UserController`) einen oder mehrere Endpunkte (z.B. `/api/users`) zur Verfügung. Business-Logik sollte nicht in Controllern definiert werden. Controller können einen oder mehrere sogenannte _Services_ aufrufen. Ein Service kapselt die eigentliche Business-Logik. Dies können z.B. auch Anfragen an eine Datenbank sein, welche wiederum nicht direkt im Service stattfinden, sondern über ein sogenanntes `Repository` delegiert werden. In einem Repository werden eine oder mehrere DB-Anfragen formuliert. In der Regel geschieht dies via _Spring Data JPA_ (siehe Abschnitt unten). Neben der Kommunikation mit einem Repository können Services auch weitere Services aufrufen.
@@ -182,6 +198,10 @@ Mehr unter:
 - <https://liquibase.org/>
 - <https://docs.liquibase.com/tools-integrations/springboot/using-springboot-with-maven.html>
 - <https://www.baeldung.com/liquibase-refactor-schema-of-java-app>
+
+### Model Versioning
+
+todo ...
 
 ### Security
 
@@ -266,6 +286,10 @@ Mittels _Jib_ kann ein optimiertes Docker-Image einer Java-Anwendung erstellt we
 Mehr unter:
 
 - <https://github.com/GoogleContainerTools/jib>
+
+### OWASP Dependency Check
+
+todo ...
 
 ## Hands-on Spring Boot Service "My User Management"
 
